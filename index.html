@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VAJRA B2B | Surat Fabric Surplus & Live Lot Market</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased pb-28 selection:bg-amber-400 selection:text-black">
+
+  <!-- TOP BAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur border-b border-slate-800 px-5 py-3 flex justify-between items-center max-w-5xl mx-auto">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">⚡</span>
+      <div>
+        <div class="text-xl font-black text-white leading-none">VAJRA <span class="text-amber-400 text-xs bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/20 font-bold">B2B</span></div>
+        <div class="text-[10px] text-slate-400 font-semibold uppercase">Surat Fabric Liquidation</div>
+      </div>
+    </div>
+    <a href="tel:+919510401971" class="text-xs bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition">
+      📞 <span>95104 01971</span>
+    </a>
+  </header>
+
+  <!-- LIVE LOT BROADCAST TICKER -->
+  <div class="bg-gradient-to-r from-amber-500/10 via-amber-400/20 to-amber-500/10 border-b border-amber-400/20 py-2 px-4 text-center">
+    <p class="text-xs font-bold text-amber-300 flex items-center justify-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>LIVE SURAT MANDI BROADCAST: Fresh Mill Surplus & Cash Lots</span>
+    </p>
+  </div>
+
+  <!-- SECTION 1: RUNNING LOTS BROADCAST (AUTO-CAROUSEL) -->
+  <section class="max-w-4xl mx-auto px-5 pt-8 pb-6">
+    <div class="flex justify-between items-end mb-4">
+      <div>
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span> Active Surplus Deals
+        </span>
+        <h2 class="text-2xl font-black text-white">Live Broadcast Lots</h2>
+      </div>
+      <!-- Slider Arrows -->
+      <div class="flex gap-2">
+        <button onclick="prevLot()" aria-label="Previous Lot" class="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-slate-800 transition">❮</button>
+        <button onclick="nextLot()" aria-label="Next Lot" class="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-slate-800 transition">❯</button>
+      </div>
+    </div>
+
+    <!-- Dynamic Running Lots Carousel Wrapper -->
+    <div class="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-2xl">
+      <div id="activeLotsContainer" class="min-h-[220px] flex items-center justify-center">
+        <div class="text-slate-400 text-sm animate-pulse">Surat warehouse lots load ho rahe hain...</div>
+      </div>
+      <!-- Dots Indicator -->
+      <div id="carouselDots" class="flex justify-center gap-1.5 mt-4"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: 1-FIELD MOBILE NUMBER LEAD CAPTURE -->
+  <section class="max-w-md mx-auto px-5 py-4 text-center">
+    <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl text-left shadow-xl">
+      <div class="text-xs font-bold text-white mb-1">📲 Saste Lots Ki WhatsApp Alert List Me Judein</div>
+      <p class="text-[11px] text-slate-400 mb-2.5">Naya lot aate hi sample aur video sabse pehle aapko WhatsApp par milegi.</p>
+      
+      <form id="leadForm" onsubmit="handleLeadSubmit(event)" class="space-y-2">
+        <div class="flex gap-2">
+          <div class="relative flex-1">
+            <span class="absolute left-3 top-2.5 text-slate-400 font-bold text-xs">+91</span>
+            <input type="tel" id="mobileNumber" pattern="[6-9][0-9]{9}" maxlength="10" required placeholder="10-digit mobile number" 
+                   class="w-full bg-slate-950 border border-slate-700 rounded-xl py-2 pl-11 pr-3 text-xs text-white focus:outline-none focus:border-amber-400">
+          </div>
+          <button type="submit" id="leadBtn" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs whitespace-nowrap transition active:scale-95">
+            Join Alert
+          </button>
+        </div>
+      </form>
+      <div id="leadSuccess" class="hidden text-[11px] text-emerald-400 mt-2 font-bold">✓ Number Save Ho Gaya! WhatsApp List Me Add Kar Diya Gaya Hai.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: SOLD-OUT INVENTORY & SIMILAR REQUIREMENT RAISE -->
+  <section class="max-w-4xl mx-auto px-5 py-8 border-t border-slate-900">
+    <div class="mb-5">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded">Past Closed Deals</span>
+        <span class="text-xs text-slate-400">• Reference Archive</span>
+      </div>
+      <h2 class="text-xl sm:text-2xl font-black text-white mt-1">Sold-Out Lots (Bik Chuka Maal)</h2>
+      <p class="text-xs text-slate-400 mt-1">Agar inme se koi lot aapke kaam ka tha aur miss ho gaya, to <b>"Aisa Maal Chahiye"</b> par tap karke requirement bhej sakte hain.</p>
+    </div>
+
+    <!-- Dynamic Sold Lots Grid -->
+    <div id="soldLotsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+      <div class="text-slate-500 text-xs">Past lots loading...</div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: PAYMENT TRUST & QUALITY INSPECTION -->
+  <section class="max-w-4xl mx-auto px-5 py-8 border-t border-slate-900">
+    <div class="text-center max-w-lg mx-auto mb-6">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">No Risk Guarantee</div>
+      <h2 class="text-2xl font-extrabold text-white">Bayer Aur Seller Dono Ka Paisa 100% Safe</h2>
+      <p class="text-xs text-slate-400 mt-1">Surat mandi me na buyer ka paisa fasega, na seller ki udhari lagegi.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <!-- TRUST POINT 1: PAYMENT ESCROW -->
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-5 rounded-2xl border border-emerald-500/40 relative overflow-hidden">
+        <div class="text-emerald-400 text-2xl mb-2">🛡️</div>
+        <h3 class="text-base font-bold text-white mb-1.5">100% Surakshit Payment Escrow</h3>
+        <ul class="text-xs text-slate-300 space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <span><b>Buyer Ke Liye:</b> Aapka paisa tab tak safe rehta hai jab tak Surat godown par physical inspection pass na ho aur transport LR na ban jaye.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <span><b>Seller Ke Liye:</b> Gadi godown se nikalne se pehle 100% clear hisaab. 0-day payment sidha aapke bank account me.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- TRUST POINT 2: GROUND AGENT INSPECTION -->
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 p-5 rounded-2xl border border-amber-400/40 relative overflow-hidden">
+        <div class="text-amber-400 text-2xl mb-2">🔬</div>
+        <h3 class="text-base font-bold text-white mb-1.5">Surat Ground Agent Quality Inspection</h3>
+        <ul class="text-xs text-slate-300 space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="text-amber-400 font-bold">✓</span>
+            <span><b>Physical Verification:</b> Vajra ke ground agents khud mill par jaakar actual GSM, Panna (Width), aur meterage physical check karte hain.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-amber-400 font-bold">✓</span>
+            <span><b>Live Video Call:</b> Gadi load hone se pehle buyer ko live video call par pura lot dikhaya jaata hai aur written defect grading milti hai.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5: SELLER FAST DESK -->
+  <section class="max-w-xl mx-auto px-5 py-6 border-t border-slate-900 text-center">
+    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800">
+      <h3 class="text-base font-extrabold text-white mb-1">Mill Owners & Stockists: Mal Khali Karein</h3>
+      <p class="text-xs text-slate-400 mb-3">Godown me pada surplus stock khali karna hai? Sirf lot ki 2 photo aur meter WhatsApp karein.</p>
+      <a href="https://wa.me/919510401971?text=Radhe%20Radhe,%20mere%20paas%20kapde%20ka%20surplus/dead-stock%20hai,%20bechna%20hai." 
+         class="inline-block w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow-lg active:scale-95">
+        💬 WhatsApp Par Stock Bhejo
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="text-center py-6 border-t border-slate-900 text-slate-500 text-xs">
+    <p class="mb-1">© 2026 VAJRA B2B. Surat Textile Market, Gujarat.</p>
+    <p>Contact: <a href="mailto:deals@vajrab2b.com" class="text-amber-400 hover:underline">deals@vajrab2b.com</a> | Helpline: <a href="tel:+919510401971" class="text-slate-300 font-semibold">+91 95104 01971</a></p>
+  </footer>
+
+  <!-- STICKY BOTTOM BAR -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur border-t border-slate-800 p-2.5 max-w-xl mx-auto grid grid-cols-2 gap-2">
+    <a href="tel:+919510401971" class="py-3 bg-slate-900 hover:bg-slate-800 active:bg-slate-700 text-white text-center font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 border border-slate-700">
+      📞 <span>Phone Lagao</span>
+    </a>
+    <a href="https://wa.me/919510401971?text=Radhe%20Radhe,%20Vajra%20B2B%20deals%20ki%20detail%20chahiye." class="py-3 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-center font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg">
+      💬 <span>WhatsApp</span>
+    </a>
+  </div>
+
+  <!-- JAVASCRIPT: DATA FETCH + RUNNING CAROUSEL LOGIC -->
+  <script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyuyqlTacphDigW2rSQ4rr60azSiSS9biLK2Un1fFYg_fqg7mZL_jQWqtjkJNWGELVWFg/exec";
+    const BIZ_PHONE = "919510401971";
+
+    let activeLots = [];
+    let currentLotIndex = 0;
+    let carouselTimer = null;
+
+    // Fallback Data (Agar network slow ho tab bhi page bhara hua dikhega)
+    const defaultLots = [
+      { id: "L-101", title: "14 KG Rayon Mill Print Surplus", category: "Rayon", specs: "44 inch Panna, 140 GSM, Export Quality Prints", qty: "14,000 Mtr", rate: "29.50", market_rate: "44.00", status: "ACTIVE" },
+      { id: "L-102", title: "60x60 Pure Cotton Cambric Solids", category: "Cotton", specs: "12 Fresh Shades, 100+ Mtr Cut Thaan", qty: "8,500 Mtr", rate: "37.00", market_rate: "52.00", status: "ACTIVE" },
+      { id: "L-103", title: "Heavy Poly Crepe Clearance Stock", category: "Polyester", specs: "Low budget lining & bottomwear lot", qty: "22,000 Mtr", rate: "17.50", market_rate: "30.00", status: "SOLD" },
+      { id: "L-104", title: "Micro Twill Dyed Surplus Fabric", category: "Twill", specs: "Fresh roll pack lot, export surplus", qty: "6,200 Mtr", rate: "42.00", market_rate: "58.00", status: "SOLD" }
+    ];
+
+    async function loadLots() {
+      try {
+        const res = await fetch(GOOGLE_SCRIPT_URL);
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          processLots(data);
+          return;
+        }
+      } catch (err) {
+        console.warn("Using fallback lots data:", err);
+      }
+      processLots(defaultLots);
+    }
+
+    function processLots(data) {
+      activeLots = data.filter(item => String(item.status).trim().toUpperCase() === "ACTIVE");
+      const soldLots = data.filter(item => String(item.status).trim().toUpperCase() === "SOLD");
+
+      renderCarousel();
+      renderSoldArchive(soldLots);
+    }
+
+    function renderCarousel() {
+      const container = document.getElementById('activeLotsContainer');
+      if (activeLots.length === 0) {
+        container.innerHTML = `<div class="text-slate-400 text-xs py-8 text-center">Naya lot warehouse me inspection par hai. Direct list ke liye WhatsApp karein.</div>`;
+        return;
+      }
+      showSlide(0);
+      startTimer();
+    }
+
+    function showSlide(index) {
+      if (activeLots.length === 0) return;
+      currentLotIndex = index;
+      const lot = activeLots[index];
+      const container = document.getElementById('activeLotsContainer');
+      const dotsContainer = document.getElementById('carouselDots');
+
+      const bookMsg = encodeURIComponent(`Radhe Radhe, mujhe Lot #${lot.id} (${lot.title}) book karna hai. Details confirm karein.`);
+      const videoMsg = encodeURIComponent(`Radhe Radhe, Lot #${lot.id} (${lot.title}) ka live warehouse video aur sample photo gallery bhejo.`);
+
+      container.innerHTML = `
+        <div class="w-full transition-all duration-300">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-extrabold bg-amber-400/10 text-amber-400 border border-amber-400/30 px-2.5 py-1 rounded-lg">
+              Lot #${lot.id} • ${lot.category || 'Surplus'}
+            </span>
+            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              Stock: ${lot.qty}
+            </span>
+          </div>
+
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mb-1">${lot.title}</h3>
+          <p class="text-xs text-slate-300 mb-4">${lot.specs}</p>
+
+          <div class="flex items-center justify-between bg-slate-950 p-3 rounded-xl border border-slate-800 mb-4">
+            <div>
+              <div class="text-[10px] text-slate-500 line-through">Mandi Rate: ₹${lot.market_rate}</div>
+              <div class="text-xl font-black text-amber-400">₹${lot.rate} <span class="text-xs text-slate-400 font-normal">/mtr</span></div>
+            </div>
+            <div class="text-right">
+              <span class="text-[11px] font-bold text-emerald-400">✓ Physical Inspected</span>
+              <div class="text-[10px] text-slate-400">Surat Warehouse</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <a href="https://wa.me/${BIZ_PHONE}?text=${bookMsg}" target="_blank"
+               class="text-center py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition active:scale-95">
+              💬 Lot Lock Karo
+            </a>
+            <a href="https://wa.me/${BIZ_PHONE}?text=${videoMsg}" target="_blank"
+               class="text-center py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl text-xs transition border border-slate-700 active:scale-95">
+              📹 Video Sample Maango
+            </a>
+          </div>
+        </div>
+      `;
+
+      dotsContainer.innerHTML = activeLots.map((_, i) => `
+        <button onclick="showSlide(${i}); resetTimer();" aria-label="Go to slide ${i+1}" class="h-2 rounded-full transition-all ${i === index ? 'w-6 bg-amber-400' : 'w-2 bg-slate-700'}"></button>
+      `).join('');
+    }
+
+    function nextLot() {
+      currentLotIndex = (currentLotIndex + 1) % activeLots.length;
+      showSlide(currentLotIndex);
+      resetTimer();
+    }
+
+    function prevLot() {
+      currentLotIndex = (currentLotIndex - 1 + activeLots.length) % activeLots.length;
+      showSlide(currentLotIndex);
+      resetTimer();
+    }
+
+    function startTimer() {
+      carouselTimer = setInterval(() => {
+        if (activeLots.length > 1) nextLot();
+      }, 4500);
+    }
+
+    function resetTimer() {
+      clearInterval(carouselTimer);
+      startTimer();
+    }
+
+    function renderSoldArchive(soldList) {
+      const grid = document.getElementById('soldLotsGrid');
+      if (soldList.length === 0) {
+        grid.innerHTML = `<div class="text-slate-500 text-xs col-span-3">Puraana koi sold lot archive me nahi hai.</div>`;
+        return;
+      }
+
+      grid.innerHTML = soldList.map(lot => {
+        const reqMsg = encodeURIComponent(`Radhe Radhe, maine website par Sold Lot #${lot.id} (${lot.title}) dekha. Mujhe aisa similar lot chahiye. Availability check karein.`);
+        return `
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-3.5 relative flex flex-col justify-between opacity-85 hover:opacity-100 transition">
+            <div class="flex justify-between items-center mb-1.5">
+              <span class="text-[10px] font-bold text-slate-400">Lot #${lot.id}</span>
+              <span class="text-[10px] font-black bg-rose-500/20 text-rose-400 border border-rose-500/30 px-1.5 py-0.5 rounded">SOLD OUT</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-200 line-clamp-1">${lot.title}</h4>
+            <div class="text-[11px] text-slate-400 mb-2.5">Deal Closed @ ₹${lot.rate}/mtr (${lot.qty})</div>
+            
+            <a href="https://wa.me/${BIZ_PHONE}?text=${reqMsg}" target="_blank"
+               class="block w-full text-center py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold rounded-lg text-[11px] border border-amber-400/20 transition active:scale-95">
+              🔁 Aisa Maal Aur Chahiye?
+            </a>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function handleLeadSubmit(e) {
+      e.preventDefault();
+      const phone = document.getElementById('mobileNumber').value;
+      const btn = document.getElementById('leadBtn');
+      const success = document.getElementById('leadSuccess');
+      btn.innerText = "...";
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: phone, role: 'Buyer/Alert', note: 'Homepage Alert Lead' })
+        });
+      } catch (err) {}
+
+      btn.innerText = "Done ✓";
+      success.classList.remove('hidden');
+
+      setTimeout(() => {
+        window.open(`https://wa.me/${BIZ_PHONE}?text=${encodeURIComponent(`Radhe Radhe, mera number ${phone} hai. Mujhe daily fresh surplus lots ki broadcast list me add karein.`)}`, '_blank');
+      }, 1000);
+    }
+
+    window.onload = loadLots;
+  </script>
+
+</body>
+</html>
