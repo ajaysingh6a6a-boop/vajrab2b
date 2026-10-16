@@ -60,6 +60,8 @@
   <a href="tel:919510401971" class="wa-btn" style="display:inline-block;background:var(--navy);padding:11px 22px">📞 Call Now</a>
 </div></div>
 
+<div id="lb"><div id="lbc"></div><button class="lbx" onclick="closeLB()">✕</button><button class="lbn lp" onclick="lbStep(-1)">‹</button><div id="lbm"></div><button class="lbn ln" onclick="lbStep(1)">›</button></div>
+
 <a class="float-wa" id="floatWa" href="#" target="_blank">💬 Sourcing Desk</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
@@ -92,9 +94,11 @@ function card(l) {
     ? `<video class="slide-item ${k ? "" : "active"}" src="${esc(x.url)}" controls muted playsinline preload="none"></video>`
     : `<img class="slide-item ${k ? "" : "active"}" src="${esc(x.url)}" loading="lazy" alt="${esc(l.title)}">`).join("");
   const dots = media.length > 1 ? media.map((_, k) => `<span class="dot ${k ? "" : "active"}" onclick="setSlide('${l.id}',${k})"></span>`).join("") : "";
+  const nav = media.length > 1 ? `<button class="nav prev" data-s="-1">‹</button><button class="nav next" data-s="1">›</button>` : "";
+  const expand = media.length ? `<button class="expand" data-x="1">⛶ Open</button>` : "";
   const msg = `Namaste Vajra B2B, mujhe Lot *${l.lot_code} (${l.title})* @ ₹${l.vajra_rate}/m (${l.qty} Mtr) ka counter-sample mangwana hai aur deal lock karni hai.`;
   return `<div class="card" id="card-${l.id}">
-    <div class="media-wrap">${m}<div class="top-badges"><span class="lot-tag">LOT #${esc(l.lot_code)}</span><span class="guar-tag">✓ Hold-LR</span></div><div class="dots">${dots}</div></div>
+    <div class="media-wrap">${m}<div class="top-badges"><span class="lot-tag">LOT #${esc(l.lot_code)}</span><span class="guar-tag">✓ Hold-LR</span></div>${nav}${expand}<div class="dots">${dots}</div></div>
     <div class="card-body">
       <div class="title-row"><div class="fab-title">${esc(l.title)}</div><span class="end-use">✂️ ${esc(l.use_for)}</span></div>
       <div class="price-box">
@@ -127,6 +131,56 @@ function setSlide(id, k) {
   c.querySelectorAll(".slide-item").forEach((el, i) => { el.classList.toggle("active", i === k); if (el.tagName === "VIDEO" && i !== k) el.pause(); });
   c.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === k));
 }
+function curIdx(c) { return [...c.querySelectorAll(".slide-item")].findIndex(e => e.classList.contains("active")); }
+function step(c, d) {
+  const n = c.querySelectorAll(".slide-item").length; if (n < 2) return;
+  setSlide(c.id.slice(5), (curIdx(c) + d + n) % n);
+}
+
+/* Card: tap, arrows, swipe */
+const track = document.getElementById("lotTrack");
+track.addEventListener("click", e => {
+  const t = e.target, c = t.closest(".card"); if (!c) return;
+  if (t.dataset.s) { step(c, +t.dataset.s); return; }
+  if (t.dataset.x || t.matches("img.slide-item")) openLB(c, Math.max(0, curIdx(c)));
+});
+let sx = 0, sy = 0;
+track.addEventListener("touchstart", e => { if (e.target.closest(".media-wrap")) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; } }, { passive: true });
+track.addEventListener("touchend", e => {
+  const w = e.target.closest(".media-wrap");
+  if (!w || e.target.tagName === "VIDEO") return;
+  const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+  if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) step(w.closest(".card"), dx < 0 ? 1 : -1);
+}, { passive: true });
+
+/* Full-screen viewer */
+let lbItems = [], lbI = 0;
+const lb = document.getElementById("lb");
+function openLB(c, i) {
+  lbItems = [...c.querySelectorAll(".slide-item")].map(e => ({ v: e.tagName === "VIDEO", s: e.getAttribute("src") }));
+  lbI = i; showLB(); lb.classList.add("show"); document.body.style.overflow = "hidden";
+}
+function showLB() {
+  const it = lbItems[lbI], m = document.getElementById("lbm");
+  m.innerHTML = it.v ? '<video controls autoplay playsinline></video>' : '<img alt="">';
+  m.firstChild.src = it.s;
+  document.getElementById("lbc").textContent = (lbI + 1) + " / " + lbItems.length;
+}
+function lbStep(d) { if (lbItems.length < 2) return; lbI = (lbI + d + lbItems.length) % lbItems.length; showLB(); }
+function closeLB() { lb.classList.remove("show"); document.getElementById("lbm").innerHTML = ""; document.body.style.overflow = ""; }
+lb.addEventListener("click", e => { if (e.target.id === "lb" || e.target.id === "lbm") closeLB(); });
+lb.addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+lb.addEventListener("touchend", e => {
+  if (e.target.tagName === "VIDEO") return;
+  const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) lbStep(dx < 0 ? 1 : -1);
+}, { passive: true });
+document.addEventListener("keydown", e => {
+  if (!lb.classList.contains("show")) return;
+  if (e.key === "Escape") closeLB();
+  if (e.key === "ArrowRight") lbStep(1);
+  if (e.key === "ArrowLeft") lbStep(-1);
+});
 
 async function registerVIP() {
   const phone = document.getElementById("vipPhone").value.replace(/\D/g, "");
