@@ -1,246 +1,322 @@
 <!DOCTYPE html>
-<html lang="hi" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VAJRA B2B | Surat Fabric Surplus Marketplace</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    body { font-family:'Plus Jakarta Sans',sans-serif; background:radial-gradient(120% 120% at 50% 0%,#1E293B 0%,#0F172A 45%,#080E1A 100%); color:#F8FAFC; }
-    .glass-card { background:linear-gradient(135deg,rgba(30,41,59,0.8) 0%,rgba(15,23,42,0.9) 100%); backdrop-filter:blur(16px); border:1px solid rgba(148,163,184,0.18); box-shadow:0 10px 25px -10px rgba(0,0,0,0.5); }
-    .gold-gradient { background:linear-gradient(135deg,#FDE68A 0%,#F59E0B 100%); }
-    .gold-text { background:linear-gradient(135deg,#FEF08A 0%,#F59E0B 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .no-scrollbar::-webkit-scrollbar { display:none; }
-    .no-scrollbar { -ms-overflow-style:none; scrollbar-width:none; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VAJRA B2B | Verified Surat Surplus Textile Marketplace</title>
+<style>
+:root{--bg:#ffffff;--card:#ffffff;--ink:#0f172a;--sub:#475569;--navy:#1e3a8a;--green:#16a34a;--wa:#25D366;--red:#dc2626;--gold:#d97706;--bdr:#e2e8f0}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+body{background:var(--bg);color:var(--ink);line-height:1.45;padding-bottom:70px}
+header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);border-bottom:2px solid var(--bdr);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(15,23,42,0.05)}
+.brand{display:flex;align-items:center;gap:12px}
+.logo-box{width:52px;height:52px;border-radius:10px;overflow:hidden;border:2px solid var(--gold);background:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.logo-box img{width:100%;height:100%;object-fit:cover}
+.brand-title{font-size:1.35rem;font-weight:900;color:var(--navy);letter-spacing:0.5px}
+.brand-sub{font-size:0.75rem;font-weight:700;color:var(--sub)}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.guar-pill{background:#dcfce7;color:#15803d;border:1.5px solid #86efac;padding:6px 12px;border-radius:99px;font-size:0.78rem;font-weight:800;display:flex;align-items:center;gap:5px}
+.admin-btn{background:#f1f5f9;color:var(--ink);border:1px solid var(--bdr);padding:7px 12px;border-radius:8px;font-size:0.78rem;font-weight:700;cursor:pointer}
+.admin-btn.active{background:var(--navy);color:#fff}
+.hero{max-width:1220px;margin:18px auto 10px;padding:0 16px}
+.trust-bar{background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px 16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}
+.trust-item{color:#166534;font-size:0.85rem;font-weight:800;display:flex;align-items:center;gap:6px}
+.admin-panel{display:none;background:#f8fafc;border:2px dashed var(--navy);border-radius:14px;padding:16px;margin-bottom:20px}
+.admin-panel.show{display:block}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.form-grid input,.form-grid select{padding:9px 11px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.85rem;background:#fff;color:var(--ink)}
+.upload-lbl{grid-column:1/-1;background:#eff6ff;border:2px dashed #3b82f6;color:var(--navy);padding:12px;text-align:center;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.88rem}
+.add-btn{grid-column:1/-1;background:var(--green);color:#fff;border:none;padding:11px;border-radius:8px;font-weight:800;font-size:0.95rem;cursor:pointer}
+.container{max-width:1220px;margin:0 auto;padding:0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
+.card{background:var(--card);border:1.5px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(15,23,42,0.06);transition:transform 0.25s,box-shadow 0.25s;display:flex;flex-direction:column;position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(30,58,138,0.12);border-color:#93c5fd}
+.media-wrap{position:relative;height:235px;background:#f1f5f9;overflow:hidden}
+.slide-item{width:100%;height:100%;object-fit:cover;display:none}
+.slide-item.active{display:block;animation:fadeIn 0.4s ease}
+@keyframes fadeIn{from{opacity:0.4}to{opacity:1}}
+.top-badges{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;pointer-events:none}
+.lot-tag{background:rgba(15,23,42,0.85);color:#fff;padding:4px 9px;border-radius:6px;font-size:0.72rem;font-weight:800}
+.guar-tag{background:var(--green);color:#fff;padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:800;box-shadow:0 2px 8px rgba(22,163,74,0.4)}
+.dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer}
+.dot.active{background:#fff;width:18px;border-radius:99px}
+.card-upload{display:none;position:absolute;bottom:8px;right:8px;background:rgba(15,23,42,0.88);color:#fff;font-size:0.72rem;font-weight:700;padding:5px 9px;border-radius:6px;cursor:pointer;z-index:5}
+body.is-admin .card-upload,body.is-admin .del-btn{display:inline-block}
+.del-btn{display:none;position:absolute;top:40px;right:10px;background:var(--red);color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:0.7rem;font-weight:800;cursor:pointer;z-index:5}
+.card-body{padding:15px;display:flex;flex-direction:column;gap:11px;flex:1}
+.title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.fab-title{font-size:1.12rem;font-weight:900;color:var(--ink)}
+.end-use{background:#eff6ff;color:var(--navy);font-size:0.72rem;font-weight:800;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.price-box{background:linear-gradient(135deg,#f8fafc 0%,#f0fdf4 100%);border:1.5px solid #bbf7d0;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.price-flex{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.mkt-rate{font-size:0.82rem;color:var(--sub);font-weight:700}
+.mkt-strike{color:var(--red);text-decoration:line-through;font-weight:900;font-size:0.95rem;margin-left:4px}
+.vajra-rate{font-size:1.45rem;font-weight:900;color:var(--green)}
+.vajra-rate small{font-size:0.75rem;color:var(--sub);font-weight:700}
+.save-banner{background:#fef2f2;color:var(--red);border:1px solid #fecaca;padding:4px 8px;border-radius:6px;font-size:0.78rem;font-weight:900;display:flex;justify-content:space-between;align-items:center;animation:pulseSave 2s infinite}
+@keyframes pulseSave{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;font-size:0.8rem;background:#f8fafc;padding:10px;border-radius:10px;border:1px solid var(--bdr)}
+.spec-item{display:flex;flex-direction:column}
+.spec-lbl{font-size:0.68rem;color:var(--sub);font-weight:700;text-transform:uppercase}
+.spec-val{font-weight:800;color:var(--ink)}
+.qc-box{background:#f0fdf4;border:1px solid #86efac;color:#166534;padding:8px 10px;border-radius:8px;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:space-between}
+.urgency{font-size:0.74rem;color:var(--gold);font-weight:800;display:flex;align-items:center;gap:5px}
+.wa-btn{margin-top:auto;background:var(--wa);color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:900;font-size:0.92rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(37,211,102,0.35);transition:background 0.2s,transform 0.15s}
+.wa-btn:hover{background:#1da851;transform:scale(1.01)}
+.float-wa{position:fixed;bottom:18px;right:18px;background:var(--wa);color:#fff;padding:12px 18px;border-radius:99px;font-weight:900;font-size:0.88rem;text-decoration:none;box-shadow:0 6px 20px rgba(37,211,102,0.45);z-index:99;display:flex;align-items:center;gap:8px}
+</style>
 </head>
-<body class="min-h-screen pb-24 text-slate-100 antialiased selection:bg-amber-400 selection:text-black">
+<body>
 
-  <!-- TOP TICKER -->
-  <div class="bg-gradient-to-r from-emerald-500/20 via-amber-500/20 to-cyan-500/20 border-b border-emerald-500/30 px-3 py-1.5 text-center text-[11px] sm:text-xs text-emerald-200 font-bold tracking-wide flex items-center justify-center gap-2">
-    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span></span>
-    <span>SURAT DIRECT MILL SURPLUS • DAILY AUTO-REFRESH LOTS • 100% VERIFIED DISPATCH</span>
-  </div>
-
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40 bg-[#0F172A]/90 backdrop-blur-xl border-b border-slate-700/50 px-4 py-3">
-    <div class="max-w-5xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-xl gold-gradient flex items-center justify-center font-black text-slate-950 text-lg shadow-lg">V</div>
-        <div>
-          <div class="flex items-center gap-1.5"><span class="font-black text-lg text-white">VAJRA</span><span class="text-[10px] px-1.5 py-0.5 rounded font-extrabold bg-amber-400 text-slate-950">B2B</span></div>
-          <p class="text-[10px] text-slate-400">Surat Surplus Fabric Hub</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <a href="tel:+919510401971" class="hidden sm:flex px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-600 bg-slate-800 text-slate-100">📞 +91 9510401971</a>
-        <a href="https://wa.me/919510401971?text=Radhe%20Radhe!%20Mujhe%20Surat%20fabric%20lots%20ki%20details%20chahiye." target="_blank" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 shadow-md">WhatsApp Desk</a>
-      </div>
+<header>
+  <div class="brand">
+    <div class="logo-box" id="logoTrigger" title="Click in Admin Mode to change Logo from Gallery">
+      <img id="siteLogo" src="1000106469.png" onerror="this.src=window.DEFAULT_VAJRA_LOGO" alt="Vajra Logo">
+      <input type="file" id="logoInput" accept="image/*" style="display:none">
     </div>
-  </header>
-
-  <main class="max-w-5xl mx-auto px-4 pt-5 space-y-6">
-    <!-- HERO -->
-    <section class="text-center space-y-2 pt-1">
-      <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span><span>LIVE MARKETPLACE BROADCAST</span>
-      </div>
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Surat Textile Mills Ka <span class="gold-text">Surplus & Ready Stock</span></h1>
-      <p class="text-xs text-slate-300 max-w-lg mx-auto">Bina kisi middleman ke direct mill rates par maal kharido. 100% physically checked & sample guarantee.</p>
-    </section>
-
-    <!-- 1. LIVE ACTIVE LOTS (NO HARDCODED LOT 101 - 100% GOOGLE SHEET DYNAMIC) -->
-    <section class="space-y-2.5">
-      <div class="flex items-center justify-between border-b border-slate-700/60 pb-2">
-        <div class="flex items-center gap-2">
-          <h2 class="text-base font-extrabold text-white">🔥 Live Broadcast Lots</h2>
-          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold border border-emerald-500/30">Auto-Slide 4s</span>
-        </div>
-        <span class="text-xs text-slate-400">Swipe Horizontally ➔</span>
-      </div>
-      <!-- Empty container: Google Sheet will fill active lots dynamically -->
-      <div id="lots-carousel" class="flex gap-4 overflow-x-auto no-scrollbar pb-2 snap-x scroll-smooth min-h-[160px] items-center">
-        <div class="w-full text-center py-8 text-slate-400 text-xs flex items-center justify-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span> Live Stock Connect Ho Raha Hai...
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. SAMPLE POLICY -->
-    <section class="p-3.5 rounded-xl border border-emerald-400/40 bg-gradient-to-r from-emerald-950/40 via-slate-900/90 to-slate-900/90 shadow flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-3 text-left">
-        <span class="text-2xl shrink-0">📦</span>
-        <div>
-          <div class="flex items-center gap-2"><h3 class="text-xs sm:text-sm font-extrabold text-white">Sample Cut Courier Policy</h3><span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-400/20 text-emerald-300">Sample Pass = Lot Dispatch</span></div>
-          <p class="text-[11px] text-slate-300 mt-0.5">Outstation buyers bina jhijhak order karein. Pehle aapke address par fabric sample cut courier hoga; sample pass hone par hi lot rawana hoga.</p>
-        </div>
-      </div>
-      <a href="https://wa.me/919510401971?text=Radhe%20Radhe!%20Mujhe%20apne%20address%20par%20sample%20cut%20courier%20karwana%20hai." target="_blank" class="shrink-0 w-full sm:w-auto px-3.5 py-1.5 rounded-lg text-xs font-extrabold text-center bg-emerald-400 hover:bg-emerald-300 text-slate-950 transition active:scale-95 shadow">Sample Mangwayein ➔</a>
-    </section>
-
-    <!-- 3. SOLD OUT STOCK (DYNAMIC FROM GOOGLE SHEET) -->
-    <section class="space-y-2">
-      <div class="flex items-center justify-between border-b border-slate-700/60 pb-1.5">
-        <div class="flex items-center gap-2"><span class="text-xs">⚡</span><h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Recently Liquidated Lots (Swipe Side-Wise ➔)</h3></div>
-        <span class="text-[11px] text-slate-400 font-semibold">Live History</span>
-      </div>
-      <div id="sold-carousel" class="flex gap-3 overflow-x-auto no-scrollbar pb-1.5 snap-x">
-        <!-- Google Sheet se SOLD status wale lots yahan aayenge -->
-      </div>
-    </section>
-
-    <!-- 4. POLICIES (VAJRA GUARANTEE) -->
-    <section class="p-4 sm:p-5 rounded-2xl border border-emerald-400/40 glass-card text-left space-y-3.5">
-      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/60 pb-2.5">
-        <div class="flex items-center gap-2"><span class="text-2xl">🛡️</span><div><h3 class="text-base font-extrabold text-white">VAJRA GUARANTEE</h3><p class="text-[11px] text-slate-300">Surat Se Desh Bhar Ke Vyapaariyon Ke Liye 100% Bharosemand Vyavastha</p></div></div>
-        <span class="text-[10px] uppercase font-black px-2 py-0.5 rounded-md bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">100% Verified</span>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-        <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1"><div class="text-emerald-400 font-bold text-xs">💰 100% Paisa Safe (Guarantee)</div><p class="text-[11px] text-slate-300">Buyer aur Seller dono ka payment safe rehta hai. Quality aur deal confirm hone ke bad payment.</p></div>
-        <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1"><div class="text-emerald-400 font-bold text-xs">📦 Sample Cut Courier</div><p class="text-[11px] text-slate-300">Bahar ke vyapaariyon ke address par direct courier dispatch. Haath me touch karein, approve hone par hi lot order karein.</p></div>
-        <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1"><div class="text-emerald-400 font-bold text-xs">🔍 Physical Godown Check</div><p class="text-[11px] text-slate-300">Surat Mill Godown par khud check ya hmare inspector kapde ka thaan, thaapi live video call par dikhayege.</p></div>
-        <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1"><div class="text-emerald-400 font-bold text-xs">🚚 Delivery & Bilty Support</div><p class="text-[11px] text-slate-300">Surat transport godown booking, LR (Bilty) generation aur aapke shahar tak safe dispatch assistance.</p></div>
-      </div>
-      <div class="pt-2 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
-        <span>🤝 Koi bhi sawaal ho? Seedha contact karein:</span>
-        <div class="flex gap-4">
-          <a href="tel:+919510401971" class="font-bold text-emerald-400">📞 +91 9510401971</a>
-          <a href="mailto:contact@vajrab2b.com" class="font-bold text-amber-400">✉️ contact@vajrab2b.com</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. VIP FORM -->
-    <section class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-amber-950/30 border border-amber-400/40 text-center space-y-2.5">
-      <div class="inline-flex px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400/15 text-amber-300">⚡ VIP BROADCAST</div>
-      <h3 class="text-base sm:text-lg font-bold text-white">Saste Lots Ki WhatsApp Alert List Me Judein</h3>
-      <p class="text-xs text-slate-300 max-w-md mx-auto">Jaise hi koi naya surplus lot aaye, sabse pehle rate aur video seedhe WhatsApp par paayein.</p>
-      <form id="lead-form" class="max-w-md mx-auto flex flex-col sm:flex-row gap-2 pt-1" onsubmit="submitLead(event)">
-        <input type="tel" id="lead-phone" placeholder="Apna 10-digit WhatsApp Number Dalein" required pattern="[0-9]{10}" class="flex-1 px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-400">
-        <button type="submit" id="lead-btn" class="px-4 py-2 rounded-xl gold-gradient text-slate-950 font-black text-xs uppercase shadow active:scale-95">Join Alert</button>
-      </form>
-      <p id="lead-msg" class="text-xs font-bold text-emerald-400 hidden">✓ Aap alert list me add ho gaye hain!</p>
-    </section>
-
-    <!-- 6. SELLER DESK (UPDATED LINE) -->
-    <section class="p-4 rounded-2xl glass-card text-left space-y-2.5">
-      <div class="flex items-center gap-2"><span class="text-2xl">🏭</span><div><h3 class="text-base font-extrabold text-white">Mill Owners & Stockists: Maal Khali Karein</h3><p class="text-xs text-slate-300">India ke verified buyers tak apna surplus ya dead-stock turant pahunchayein.</p></div></div>
-      <p class="text-xs text-slate-300 leading-relaxed">Agar aapke godown me koi lot, fresh cut, ya mill print surplus phansa hai, to photo aur expected rate WhatsApp karein. Fast cash liquidation nikalwayenge.</p>
-      <a href="https://wa.me/919510401971?text=Surat%20Mill%20Surplus%20Lot%20Bechna%20Hai." target="_blank" class="inline-flex px-3.5 py-1.5 rounded-xl text-xs font-black bg-amber-400 text-slate-950 hover:bg-amber-300">📤 Apna Lot List Karwayein (WhatsApp)</a>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="mt-10 py-6 border-t border-slate-700/60 text-center text-xs text-slate-400 space-y-1.5">
-    <p class="font-extrabold text-slate-300">VAJRA B2B — Surat Textile Surplus Marketplace</p>
-    <p>Surat, Gujarat • <a href="tel:+919510401971">📞 +91 9510401971</a> • <a href="mailto:contact@vajrab2b.com" class="text-amber-400">contact@vajrab2b.com</a> • vajrab2b.com</p>
-    <p class="text-[10px] text-slate-500">© 2026 VAJRA B2B. All rights reserved.</p>
-  </footer>
-
-  <!-- MOBILE STICKY BAR -->
-  <div class="fixed bottom-0 left-0 right-0 z-50 p-2 bg-[#0F172A]/95 backdrop-blur-md border-t border-slate-700/60 sm:hidden">
-    <div class="grid grid-cols-2 gap-2 max-w-md mx-auto">
-      <a href="tel:+919510401971" class="py-2.5 px-3 rounded-xl text-xs font-black text-center bg-slate-800 text-slate-100 border border-slate-600">📞 Phone Lagao</a>
-      <a href="https://wa.me/919510401971?text=Radhe%20Radhe!%20Surat%20fabric%20lots%20ke%20bare%20me%20baat%20karni%20hai." target="_blank" class="py-2.5 px-3 rounded-xl text-xs font-black text-center bg-emerald-500 text-slate-950 shadow-md">💬 WhatsApp</a>
+    <div>
+      <div class="brand-title">VAJRA B2B</div>
+      <div class="brand-sub">Surat Verified Surplus & Liquidation Platform</div>
     </div>
   </div>
+  <div class="hdr-right">
+    <div class="guar-pill">🛡️ 100% Hold-Bilty & Quality Guarantee</div>
+    <button class="admin-btn" id="adminToggle" onclick="toggleAdmin()">⚙️ Admin Upload</button>
+  </div>
+</header>
+<div class="hero">
+  <div class="trust-bar">
+    <div class="trust-item">✅ 100% Physical Godown Check by Quality Inspector</div>
+    <div class="trust-item">✅ 10% Token + 90% Safe Hold-LR (Bilty) Delivery Guarantee</div>
+    <div class="trust-item">✅ Direct Mill & Converter Dead-Stock (25%-35% Below Market Rate)</div>
+  </div>
 
-  <!-- JAVASCRIPT: SYNC + 4-SEC SLIDER -->
-  <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2Cf8QharzeipiNTqOD4s7dV2cQ0e5gtNDwQu67ujIUraHVnZ4DHnheKAhlsqKBGhq8g/exec";
+  <div class="admin-panel" id="adminPanel">
+    <h3 style="color:var(--navy);font-size:0.95rem">➕ Add New Surplus Lot Directly From Gallery (Zero Third-Party)</h3>
+    <div class="form-grid">
+      <input id="fId" placeholder="Lot ID (e.g. VB-104)">
+      <input id="fTitle" placeholder="Fabric Name (e.g. 14 KG Rayon Print)">
+      <input id="fMkt" type="number" placeholder="Fresh Market Rate (₹/m e.g. 38)">
+      <input id="fRate" type="number" placeholder="Vajra Spot Rate (₹/m e.g. 28)">
+      <input id="fQty" type="number" placeholder="Total Meters (e.g. 3200)">
+      <input id="fPanna" placeholder="Panna / Width (e.g. 44 Inches)">
+      <input id="fUse" placeholder="Best For (e.g. Jaipur Kurtis / Co-ords)">
+      <input id="fQc" placeholder="Quality Inspector (e.g. Verified Grade-A)">
+      <label class="upload-lbl">
+        📂 Click to Select Multiple Photos & Videos Directly from Phone/PC Gallery
+        <input type="file" id="fMedia" accept="image/*,video/*" multiple style="display:none" onchange="previewCount(this)">
+        <div id="fileCount" style="font-size:0.75rem;color:var(--green);margin-top:4px"></div>
+      </label>
+      <button class="add-btn" onclick="createNewLot()">🚀 Publish Lot on Live Website</button>
+    </div>
+  </div>
+</div>
 
-    function getVal(item, keys) {
-      for (let k of keys) {
-        for (let p in item) {
-          if (p.toLowerCase().replace(/[^a-z0-9]/g, '') === k.toLowerCase().replace(/[^a-z0-9]/g, '')) return item[p];
-        }
-      }
-      return '';
+<div class="container">
+  <div class="grid" id="lotGrid"></div>
+</div>
+
+<a class="float-wa" href="https://wa.me/919999999999?text=Namaste%20Vajra%20B2B%2C%20mujhe%20live%20surplus%20lots%20ke%20counter-samples%20aur%20details%20chahiye." target="_blank">
+  💬 WhatsApp Direct Sourcing Desk
+</a>
+
+<script>
+const WA_NUMBER = "919999999999";
+window.DEFAULT_VAJRA_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#14171a"/><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde08d"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#8a6421"/></linearGradient></defs><path d="M40 45 L75 45 L100 115 L125 45 L160 45 L108 145 L92 145 Z" fill="url(#g)" stroke="#fff" stroke-width="1.5"/><polygon points="108,25 82,88 104,88 88,152 126,78 102,78" fill="#fff7cc" stroke="#f59e0b" stroke-width="2"/><text x="100" y="182" text-anchor="middle" fill="url(#g)" font-family="Georgia,serif" font-size="28" font-weight="bold" letter-spacing="4">VAJRA</text></svg>`);
+
+const SAMPLE_SVG_1 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#1e293b"/><text x="50%" y="45%" text-anchor="middle" fill="#38bdf8" font-size="24" font-family="sans-serif" font-weight="bold">14 KG Rayon Mill Print (Thappi View)</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="sans-serif">Use Admin Upload to Add Gallery Photos/Videos</text></svg>`);
+const SAMPLE_SVG_2 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#064e3b"/><text x="50%" y="45%" text-anchor="middle" fill="#4ade80" font-size="24" font-family="sans-serif" font-weight="bold">44" Panna Measuring Tape Check ✓</text><text x="50%" y="58%" text-anchor="middle" fill="#d1fae5" font-size="15" font-family="sans-serif">100% Burn Test & Counter-Sample Verified</text></svg>`);
+
+const DEFAULT_LOTS = [
+  {id:"VB-101",title:"14 KG Liva Rayon Discharge Print",mktRate:38,vajraRate:28,qty:3200,panna:"44 Inches",use:"Jaipur Kurtis & Co-ord Sets",qc:"Verified Grade-A (<2% Tolerance)",viewers:6,media:[{type:"image",url:SAMPLE_SVG_1},{type:"image",url:SAMPLE_SVG_2}]},
+  {id:"VB-102",title:"60x60 Pure Cotton Cambric Floral",mktRate:54,vajraRate:41,qty:2400,panna:"44 Inches",use:"Premium Tiered Dresses & Suits",qc:"Verified Grade-A (Zero Pinhole)",viewers:4,media:[{type:"image",url:SAMPLE_SVG_1},{type:"image",url:SAMPLE_SVG_2}]},
+  {id:"VB-103",title:"Heavy American Crepe Digital Lot",mktRate:25,vajraRate:17,qty:4500,panna:"44 Inches",use:"Delhi Western Tops & Maxis",qc:"Verified Grade-A (Seal Packed)",viewers:9,media:[{type:"image",url:SAMPLE_SVG_1},{type:"image",url:SAMPLE_SVG_2}]}
+];
+
+let db, lots = [], slideIndices = {};
+const req = indexedDB.open("VajraB2B_GalleryDB", 1);
+req.onupgradeneeded = e => {
+  db = e.target.result;
+  db.createObjectStore("lots", {keyPath: "id"});
+  db.createObjectStore("settings", {keyPath: "key"});
+};
+req.onsuccess = e => {
+  db = e.target.result;
+  loadSavedLogo();
+  loadLots();
+};
+
+function toggleAdmin(){
+  document.body.classList.toggle("is-admin");
+  document.getElementById("adminPanel").classList.toggle("show");
+  document.getElementById("adminToggle").classList.toggle("active");
+}
+
+document.getElementById("logoTrigger").onclick = () => {
+  if(document.body.classList.contains("is-admin")) document.getElementById("logoInput").click();
+};
+document.getElementById("logoInput").onchange = async e => {
+  const f = e.target.files[0];
+  if(!f) return;
+  const dataUrl = await fileToDataURL(f);
+  document.getElementById("siteLogo").src = dataUrl;
+  const tx = db.transaction("settings","readwrite");
+  tx.objectStore("settings").put({key:"logo", val:dataUrl});
+};
+function loadSavedLogo(){
+  const tx = db.transaction("settings","readonly");
+  const r = tx.objectStore("settings").get("logo");
+  r.onsuccess = () => { if(r.result) document.getElementById("siteLogo").src = r.result.val; };
+}
+
+function fileToDataURL(file){
+  return new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(file); });
+}
+function previewCount(input){
+  document.getElementById("fileCount").innerText = `${input.files.length} Photo/Video file(s) selected from Gallery ✓`;
+}
+
+function loadLots(){
+  const tx = db.transaction("lots","readonly");
+  const r = tx.objectStore("lots").getAll();
+  r.onsuccess = () => {
+    if(r.result && r.result.length > 0){ lots = r.result; }
+    else {
+      lots = DEFAULT_LOTS;
+      const wtx = db.transaction("lots","readwrite");
+      lots.forEach(l => wtx.objectStore("lots").put(l));
     }
+    renderLots();
+  };
+}
 
-    let slideTimer = null;
-    function startSlider() {
-      const c = document.getElementById("lots-carousel");
-      if (!c) return;
-      if (slideTimer) clearInterval(slideTimer);
-      slideTimer = setInterval(() => {
-        const step = 310;
-        if (c.scrollLeft >= c.scrollWidth - c.clientWidth - 10) c.scrollTo({ left: 0, behavior: 'smooth' });
-        else c.scrollBy({ left: step, behavior: 'smooth' });
-      }, 4000);
-      c.addEventListener('touchstart', () => clearInterval(slideTimer), { passive: true });
-      c.addEventListener('touchend', () => setTimeout(startSlider, 3000), { passive: true });
+async function createNewLot(){
+  const id = document.getElementById("fId").value.trim() || "VB-" + Math.floor(100+Math.random()*900);
+  const title = document.getElementById("fTitle").value.trim() || "14 KG Rayon Surplus Lot";
+  const mktRate = Number(document.getElementById("fMkt").value) || 36;
+  const vajraRate = Number(document.getElementById("fRate").value) || 26;
+  const qty = Number(document.getElementById("fQty").value) || 2500;
+  const panna = document.getElementById("fPanna").value.trim() || "44 Inches";
+  const use = document.getElementById("fUse").value.trim() || "Kurtis & Garments";
+  const qc = document.getElementById("fQc").value.trim() || "Verified Grade-A";
+  const files = document.getElementById("fMedia").files;
+  let media = [];
+  for(let f of files){
+    const url = await fileToDataURL(f);
+    media.push({type: f.type.startsWith("video") ? "video" : "image", url});
+  }
+  if(media.length === 0) media = [{type:"image",url:SAMPLE_SVG_1}];
+  const newLot = {id, title, mktRate, vajraRate, qty, panna, use, qc, viewers: Math.floor(3+Math.random()*7), media};
+  const tx = db.transaction("lots","readwrite");
+  tx.objectStore("lots").put(newLot);
+  tx.oncomplete = () => { loadLots(); document.getElementById("fileCount").innerText = "Uploaded & Published!"; };
+}
+
+async function uploadToCard(lotId, input){
+  const files = input.files;
+  if(!files.length) return;
+  const lot = lots.find(l => l.id === lotId);
+  if(!lot) return;
+  const uploaded = [];
+  for(let f of files){
+    const url = await fileToDataURL(f);
+    uploaded.push({type: f.type.startsWith("video") ? "video" : "image", url});
+  }
+  lot.media = uploaded;
+  const tx = db.transaction("lots","readwrite");
+  tx.objectStore("lots").put(lot);
+  tx.oncomplete = () => loadLots();
+}
+
+function deleteLot(lotId){
+  const tx = db.transaction("lots","readwrite");
+  tx.objectStore("lots").delete(lotId);
+  tx.oncomplete = () => loadLots();
+}
+
+function renderLots(){
+  const grid = document.getElementById("lotGrid");
+  grid.innerHTML = lots.map(l => {
+    const savePerMtr = Math.max(0, l.mktRate - l.vajraRate);
+    const pctSave = l.mktRate > 0 ? Math.round((savePerMtr / l.mktRate)*100) : 0;
+    const totalSave = (savePerMtr * l.qty).toLocaleString("en-IN");
+    const waText = encodeURIComponent(`Namaste Vajra B2B, mujhe Lot *${l.id} (${l.title})* @ ₹${l.vajraRate}/m (${l.qty} Mtr) ka 10-inch Counter-Sample aur Hold-Bilty deal lock karni hai.`);
+    const mediaHtml = l.media.map((m, idx) => m.type === "video"
+      ? `<video class="slide-item ${idx===0?'active':''}" src="${m.url}" muted loop playsinline autoplay></video>`
+      : `<img class="slide-item ${idx===0?'active':''}" src="${m.url}" alt="${l.title}">`
+    ).join("");
+    const dotsHtml = l.media.map((_, idx) => `<span class="dot ${idx===0?'active':''}" onclick="setSlide('${l.id}',${idx})"></span>`).join("");
+
+    return `<div class="card" id="card-${l.id}">
+      <div class="media-wrap">
+        ${mediaHtml}
+        <div class="top-badges">
+          <span class="lot-tag">LOT #${l.id}</span>
+          <span class="guar-tag">✓ 100% Hold-LR Guarantee</span>
+        </div>
+        <button class="del-btn" onclick="deleteLot('${l.id}')">🗑 Delete</button>
+        <label class="card-upload">📷 Upload Gallery Photo/Video
+          <input type="file" accept="image/*,video/*" multiple style="display:none" onchange="uploadToCard('${l.id}',this)">
+        </label>
+        <div class="dots">${dotsHtml}</div>
+      </div>
+      <div class="card-body">
+        <div class="title-row">
+          <div class="fab-title">${l.title}</div>
+          <span class="end-use">✂️ ${l.use}</span>
+        </div>
+        <div class="price-box">
+          <div class="price-flex">
+            <div class="mkt-rate">Surat Fresh Rate:<span class="mkt-strike">₹${l.mktRate}/m</span></div>
+            <div class="vajra-rate">₹${l.vajraRate}<small>/Meter (Spot)</small></div>
+          </div>
+          <div class="save-banner">
+            <span>🔥 Direct Profit Saving: ₹${savePerMtr}/m (${pctSave}% OFF)</span>
+            <span>Save ₹${totalSave} on Lot!</span>
+          </div>
+        </div>
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-lbl">Total Ready Quantity</span><span class="spec-val">${l.qty.toLocaleString("en-IN")} Meters (±2%)</span></div>
+          <div class="spec-item"><span class="spec-lbl">Verified Panna (Width)</span><span class="spec-val">${l.panna}</span></div>
+          <div class="spec-item"><span class="spec-lbl">Payment Security</span><span class="spec-val" style="color:var(--green)">10% Token + 90% Hold LR</span></div>
+          <div class="spec-item"><span class="spec-lbl">Counter-Sample</span><span class="spec-val">Same-Day Courier Ready</span></div>
+        </div>
+        <div class="qc-box">
+          <span>🛡️ Physical Godown Check by <strong>Quality Inspector</strong></span>
+          <span>✓ ${l.qc}</span>
+        </div>
+        <div class="urgency">⚡ High Demand: ${l.viewers} Outstation Buyers viewing this lot right now</div>
+        <a class="wa-btn" href="https://wa.me/${WA_NUMBER}?text=${waText}" target="_blank">
+          🟢 WhatsApp Par Sample Mangwayein & Lot Lock Karein
+        </a>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function setSlide(lotId, idx){
+  const card = document.getElementById("card-" + lotId);
+  if(!card) return;
+  const items = card.querySelectorAll(".slide-item");
+  const dots = card.querySelectorAll(".dot");
+  if(!items.length) return;
+  slideIndices[lotId] = idx % items.length;
+  items.forEach((el, i) => {
+    el.classList.toggle("active", i === slideIndices[lotId]);
+    if(el.tagName === "VIDEO"){ i === slideIndices[lotId] ? el.play().catch(()=>{}) : el.pause(); }
+  });
+  dots.forEach((d, i) => d.classList.toggle("active", i === slideIndices[lotId]));
+}
+
+setInterval(() => {
+  lots.forEach(l => {
+    if(l.media && l.media.length > 1){
+      const next = ((slideIndices[l.id] || 0) + 1) % l.media.length;
+      setSlide(l.id, next);
     }
-
-    async function loadSheetData() {
-      if (!SCRIPT_URL) return;
-      try {
-        const res = await (await fetch(SCRIPT_URL)).json();
-        if (!res.success || !res.lots) return;
-
-        const live = document.getElementById("lots-carousel");
-        const sold = document.getElementById("sold-carousel");
-        const activeLots = res.lots.filter(l => !String(getVal(l, ['status'])).toUpperCase().includes("SOLD"));
-        const soldLots = res.lots.filter(l => String(getVal(l, ['status'])).toUpperCase().includes("SOLD"));
-
-        // 1. RENDER ACTIVE LOTS
-        if (live) {
-          if (activeLots.length > 0) {
-            live.innerHTML = activeLots.map(l => {
-              const id = getVal(l, ['lotid', 'id']) || 'Lot', fab = getVal(l, ['fabric', 'title', 'item']) || 'Mill Surplus', specs = getVal(l, ['details', 'specs']) || 'Surat Godown Ready', rate = getVal(l, ['rate', 'price']) || '0', mrate = getVal(l, ['millrate']) || '', mtr = getVal(l, ['totalmtr', 'mtr']) || '', img = getVal(l, ['image', 'photo', 'img']), vid = getVal(l, ['video', 'videourl']);
-              const media = img 
-                ? `<div class="relative h-40 bg-slate-900 overflow-hidden border-b border-slate-700/50"><img src="${img}" alt="${fab}" class="w-full h-full object-cover"><span class="absolute top-2 left-2 text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-400 text-slate-950">Lot #${id}</span>${vid ? `<span class="absolute top-2 right-2 text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-500 text-white">▶ Video</span>` : ''}</div>`
-                : `<div class="relative h-36 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center border-b border-slate-700/50"><div class="text-center p-2"><span class="text-3xl block">🧵</span><span class="text-[11px] text-slate-300">Mill Direct Fabric</span></div><span class="absolute top-2 left-2 text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-400 text-slate-950">Lot #${id}</span><span class="absolute top-2 right-2 text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500 text-white">● Ready Godown</span></div>`;
-
-              return `<div class="snap-start shrink-0 w-[280px] sm:w-[310px] rounded-2xl glass-card flex flex-col justify-between overflow-hidden">
-                ${media}
-                <div class="p-3.5 space-y-2.5 flex-1 flex flex-col justify-between">
-                  <div><h3 class="text-sm sm:text-base font-bold text-white line-clamp-1">${fab}</h3><p class="text-xs text-slate-300 mt-0.5 line-clamp-2">${specs}</p></div>
-                  <div class="flex items-baseline gap-1.5 pt-1 border-t border-slate-700/50"><span class="text-xl font-black text-amber-400">₹${rate}</span><span class="text-[11px] text-slate-400">/ Mtr ${mrate ? `(<span class="line-through">₹${mrate}</span>)` : ''}</span>${mtr ? `<span class="ml-auto text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300">${mtr}</span>` : ''}</div>
-                  <div class="space-y-1.5 pt-1">
-                    <div class="grid grid-cols-2 gap-1.5">
-                      <a href="https://wa.me/919510401971?text=Lot%20Lock%20Karna%20Hai:%20Lot%20${id}%20(${encodeURIComponent(fab)})%20Rate%20${rate}" target="_blank" class="py-2 rounded-xl text-xs font-extrabold text-center bg-emerald-500 text-slate-950 shadow">🔒 Lock</a>
-                      <a href="https://wa.me/919510401971?text=Lot%20${id}%20ka%20Sample%20Cut%20Courier%20karwana%20hai" target="_blank" class="py-2 rounded-xl text-xs font-extrabold text-center gold-gradient text-slate-950 shadow">📦 Sample</a>
-                    </div>
-                    <a href="${vid ? vid : `https://wa.me/919510401971?text=Lot%20${id}%20ka%20video%20bhejo`}" target="_blank" class="block w-full py-1.5 rounded-xl text-[11px] font-bold text-center bg-slate-800 text-slate-200 border border-slate-600">📹 Video / Photos</a>
-                  </div>
-                </div></div>`;
-            }).join('');
-            startSlider();
-          } else {
-            live.innerHTML = `<div class="w-full p-6 text-center rounded-2xl glass-card space-y-1"><span class="text-2xl">🔥</span><p class="text-sm font-bold text-white">Saare Live Lots Liquidate (Sold Out) Ho Chuke Hain!</p><p class="text-xs text-slate-300">Naya mill surplus aate hi live broadcast hoga. WhatsApp alert join karein.</p></div>`;
-          }
-        }
-
-        // 2. RENDER SOLD OUT LOTS
-        if (sold) {
-          const soldHtml = soldLots.map(l => {
-            const id = getVal(l, ['lotid', 'id']) || 'Old', fab = getVal(l, ['fabric', 'title']) || 'Fabric Lot', rate = getVal(l, ['rate', 'price']) || '', mtr = getVal(l, ['totalmtr', 'mtr']) || '', city = getVal(l, ['city']) || 'Surat Market';
-            return `<div class="snap-start shrink-0 w-[230px] p-3 rounded-xl glass-card flex flex-col justify-between shadow">
-              <div><div class="flex justify-between items-center mb-1.5"><span class="text-[10px] font-bold text-slate-400">Lot #${id}</span><span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">SOLD OUT</span></div>
-              <p class="text-xs font-bold text-white line-clamp-1">${fab}</p><p class="text-[11px] text-slate-300 mt-0.5">${mtr ? `${mtr} • ` : ''}Closed at ₹${rate}</p><span class="text-[10px] text-slate-400 mt-1 block">Dispatched to ${city}</span></div>
-              <a href="https://wa.me/919510401971?text=Radhe%20Radhe!%20Mujhe%20Lot%20${id}%20jaisa%20fabric%20chahiye." target="_blank" class="mt-2 py-1.5 rounded-lg text-[10px] font-bold text-center bg-slate-800 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 border border-emerald-500/30">💬 Aisa Maal Chahiye? Req. Dalein</a></div>`;
-          }).join('');
-          const customBox = `<div class="snap-start shrink-0 w-[210px] p-3 rounded-xl border border-dashed border-amber-400/50 bg-amber-500/10 flex flex-col justify-between text-center shadow">
-            <div><span class="text-xl block mb-1">📋</span><p class="text-xs font-bold text-white">Koi Aur Quality Chahiye?</p><p class="text-[10px] text-slate-300 mt-0.5">Rayon, Cotton ya fabric requirement bhejein.</p></div>
-            <a href="https://wa.me/919510401971?text=Radhe%20Radhe!%20Mujhe%20apni%20custom%20requirement%20batani%20hai." target="_blank" class="mt-2 py-1.5 rounded-lg text-[10px] font-black bg-amber-400 text-slate-950">+ Requirement Bhejo</a></div>`;
-          sold.innerHTML = (soldHtml ? soldHtml : '') + customBox;
-        }
-      } catch (err) { console.warn("Fetch fallback:", err); }
-    }
-
-    async function submitLead(e) {
-      e.preventDefault();
-      const p = document.getElementById("lead-phone"), b = document.getElementById("lead-btn"), m = document.getElementById("lead-msg");
-      if (!p.value || p.value.length < 10) return;
-      b.disabled = true; b.innerText = "ADDING...";
-      try { await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ phone: p.value }) }); } catch(err){}
-      m.classList.remove("hidden"); p.value = ""; b.innerText = "JOINED ✓";
-      setTimeout(() => { b.disabled = false; b.innerText = "JOIN ALERT"; }, 4000);
-    }
-
-    window.addEventListener("DOMContentLoaded", loadSheetData);
-  </script>
+  });
+}, 4000);
+</script>
 </body>
 </html>
