@@ -26,9 +26,9 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
 .form-grid input,.form-grid select{padding:9px 11px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.85rem;background:#fff;color:var(--ink)}
 .upload-lbl{grid-column:1/-1;background:#eff6ff;border:2px dashed #3b82f6;color:var(--navy);padding:12px;text-align:center;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.88rem}
-.sync-row{grid-column:1/-1;display:flex;gap:10px;margin-top:5px}
-.sync-btn{flex:1;background:var(--navy);color:#fff;border:none;padding:10px;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.85rem}
-.add-btn{grid-column:1/-1;background:var(--green);color:#fff;border:none;padding:11px;border-radius:8px;font-weight:800;font-size:0.95rem;cursor:pointer}
+.sync-row{grid-column:1/-1;display:flex;flex-direction:column;gap:8px;margin-top:5px}
+.sync-btn{background:var(--navy);color:#fff;border:none;padding:10px;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.85rem;width:100%}
+.add-btn{background:var(--green);color:#fff;border:none;padding:11px;border-radius:8px;font-weight:800;font-size:0.95rem;cursor:pointer;width:100%}
 .sec-title{font-size:1.15rem;font-weight:900;color:var(--navy);margin:24px 0 12px 16px;display:flex;align-items:center;gap:8px}
 .container{max-width:1220px;margin:0 auto;padding:0 16px;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 .container::-webkit-scrollbar{height:6px}
@@ -75,7 +75,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
 
 <header>
   <div class="brand">
-    <div class="logo-box" id="logoTrigger">
+    <div class="logo-box">
       <img id="siteLogo" src="1000106469.png" onerror="this.src=window.DEFAULT_VAJRA_LOGO" alt="Vajra Logo">
       <input type="file" id="logoInput" accept="image/*" style="display:none">
     </div>
@@ -89,7 +89,6 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
   </div>
 </header>
 <div class="hero">
-  <!-- Vajra Guarantee Dashboard Reflected Prominently -->
   <div class="dash-guarantee">
     <h3>🛡️ Vajra B2B Triple Trust & Security Guarantee</h3>
     <div class="dash-guarantee-grid">
@@ -100,7 +99,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
   </div>
 
   <div class="admin-panel" id="adminPanel">
-    <h3 style="color:var(--navy);font-size:0.95rem">➕ Add New Surplus Lot (Direct Gallery Upload or Google Sheets Sync)</h3>
+    <h3 style="color:var(--navy);font-size:0.95rem">🔒 Secure Admin Panel (Manual Upload / Google Sheets Sync)</h3>
     <div class="form-grid">
       <input id="fId" placeholder="Lot ID (e.g. VB-104)">
       <input id="fTitle" placeholder="Fabric Name (e.g. 14 KG Rayon Print)">
@@ -116,9 +115,12 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
         <div id="fileCount" style="font-size:0.75rem;color:var(--green);margin-top:4px"></div>
       </label>
       <div class="sync-row">
-        <button class="add-btn" onclick="createNewLot()" style="margin:0">🚀 Publish Fresh Lot</button>
-        <button class="sync-btn" onclick="syncGoogleSheets()">📊 Sync Google Sheet Data</button>
+        <button class="add-btn" onclick="createNewLot()">🚀 Publish Fresh Lot</button>
+        <button class="sync-btn" onclick="syncGoogleSheets()">📊 Sync Live Google Sheet (CSV / API)</button>
       </div>
+    </div>
+    <div style="margin-top:12px">
+      <input id="sheetUrlInput" placeholder="Paste Google Sheet Published CSV Link Here" style="width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.82rem">
     </div>
   </div>
 </div>
@@ -171,16 +173,15 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
   </div>
 </div>
 
-<!-- Floating Sourcing Desk Button -->
 <a class="float-wa" href="https://wa.me/919510401971?text=Namaste%20Vajra%20B2B%2C%20mujhe%20live%20surplus%20lots%20ki%20details%20chahiye." target="_blank" style="position:fixed;bottom:18px;right:18px;background:var(--wa);color:#fff;padding:12px 18px;border-radius:99px;font-weight:900;font-size:0.88rem;text-decoration:none;box-shadow:0 6px 20px rgba(37,211,102,0.45);z-index:99;display:flex;align-items:center;gap:8px">
   💬 Sourcing Desk
 </a>
 
-<!-- Sabse Niche Patli Si Black Line (Hidden Admin Trigger) -->
+<!-- Sabse Niche Patli Si Black Line (Hidden Admin PIN Trigger: 969479) -->
 <div id="footerAdminTrigger" title="Admin Portal" style="width:100%;height:6px;background:#0f172a;cursor:pointer;margin-top:50px;opacity:0.8;"></div>
 <script>
 const WA_NUMBER = "919510401971";
-const ADMIN_PIN = "969479"; // Aapka 6-Digit Secret PIN
+const ADMIN_PIN = "969479";
 
 document.getElementById("specialReqBtn").href = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent("Namaste Vajra B2B, meri ek special fabric requirement hai. Kripya mujhse sampark karein.");
 
@@ -202,7 +203,7 @@ req.onsuccess = e => {
   loadLots();
 };
 
-// Footer par bani patli black line par click karte hi 6-digit PIN mangega
+// Footer patli black line par click karte hi 6-digit PIN mangega
 document.getElementById("footerAdminTrigger").onclick = () => {
   const enteredPin = prompt("🔒 Enter 6-Digit Admin Passcode to Access Upload Panel:");
   if(enteredPin === ADMIN_PIN){
@@ -213,34 +214,6 @@ document.getElementById("footerAdminTrigger").onclick = () => {
     alert("❌ Incorrect Passcode! Access Denied.");
   }
 };
-
-// Logo click par ab sirf logo change hoga agar admin mode on hoga
-document.getElementById("logoTrigger").onclick = () => {
-  if(document.body.classList.contains("is-admin")){
-    document.getElementById("logoInput").click();
-  }
-};
-
-document.getElementById("logoInput").onchange = async e => {
-  const f = e.target.files[0];
-  if(!f) return;
-  const dataUrl = await fileToDataURL(f);
-  document.getElementById("siteLogo").src = dataUrl;
-  const tx = db.transaction("settings","readwrite");
-  tx.objectStore("settings").put({key:"logo", val:dataUrl});
-};
-function loadSavedLogo(){
-  const tx = db.transaction("settings","readonly");
-  const r = tx.objectStore("settings").get("logo");
-  r.onsuccess = () => { if(r.result) document.getElementById("siteLogo").src = r.result.val; };
-}
-
-function fileToDataURL(file){
-  return new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(file); });
-}
-function previewCount(input){
-  document.getElementById("fileCount").innerText = `${input.files.length} Photo/Video file(s) selected ✓`;
-}
 
 function loadLots(){
   const tx = db.transaction(["lots","sold"],"readonly");
@@ -269,12 +242,35 @@ async function createNewLot(){
   const newLot = {id, title, mktRate, vajraRate, qty, panna, use, qc, viewers: Math.floor(3+Math.random()*7), media};
   const tx = db.transaction("lots","readwrite");
   tx.objectStore("lots").put(newLot);
-  tx.oncomplete = () => { loadLots(); document.getElementById("fileCount").innerText = "Published!"; };
+  tx.oncomplete = () => { loadLots(); alert("Fresh Lot Published Successfully!"); };
 }
 
-function syncGoogleSheets(){
-  alert("Google Sheets Sync: To auto-sync live lots, publish your Google Sheet as CSV and connect the endpoint. Currently loading active local database.");
-  loadLots();
+// Google Sheets CSV Sync Function
+async function syncGoogleSheets(){
+  const url = document.getElementById("sheetUrlInput").value.trim();
+  if(!url){ alert("Kripya apni Published Google Sheet ka CSV link enter karein."); return; }
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+    const rows = text.split("\n").map(r => r.split(","));
+    // Format expected: id, title, mktRate, vajraRate, qty, panna, use, qc, status(active/sold)
+    const tx = db.transaction(["lots","sold"],"readwrite");
+    for(let i=1; i<rows.length; i++){
+      const r = rows[i];
+      if(r.length >= 8){
+        const lot = {id: r[0].trim(), title: r[1].trim(), mktRate: Number(r[2]), vajraRate: Number(r[3]), qty: Number(r[4]), panna: r[5].trim(), use: r[6].trim(), qc: r[7].trim(), viewers: 5, media:[{type:"image",url:SAMPLE_SVG_1}]};
+        const status = r[8] ? r[8].trim().toLowerCase() : "active";
+        if(status === "sold"){
+          tx.objectStore("sold").put(lot);
+        } else {
+          tx.objectStore("lots").put(lot);
+        }
+      }
+    }
+    tx.oncomplete = () => { loadLots(); alert("Google Sheet Synced Successfully!"); };
+  } catch(err) {
+    alert("Sync Error: Kripya check karein ki Google Sheet properly CSV ke roop me published hai.");
+  }
 }
 
 async function uploadToCard(lotId, input){
@@ -312,16 +308,16 @@ function deleteLot(lotId, isSold = false){
 function registerVIP(){
   const phone = document.getElementById("vipPhone").value.trim();
   if(!phone || phone.length < 10){ alert("Kripya sahi mobile number darj karein."); return; }
-  document.getElementById("vipMsg").innerText = "✓ Successfully Registered for VIP Broadcast! Redirecting to WhatsApp...";
+  document.getElementById("vipMsg").innerText = "✓ Registered! Redirecting to WhatsApp...";
   setTimeout(() => {
-    window.open(`https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(`Namaste Vajra B2B, mera mobile number ${phone} VIP Broadcast alerts ke liye register karein.`), "_blank");
+    window.open(`https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(`Namaste Vajra B2B, mera mobile number ${phone} VIP Broadcast alerts ke liye register karein aur ise Google Sheet me log karein.`), "_blank");
   }, 1000);
 }
 
 function renderLots(){
   const track = document.getElementById("lotTrack");
   if(lots.length === 0){
-    track.innerHTML = `<div style="padding:30px;text-align:center;color:var(--sub);font-weight:700;width:100%">No active lots right now. Use footer black line to publish live Surat surplus lots.</div>`;
+    track.innerHTML = `<div style="padding:30px;text-align:center;color:var(--sub);font-weight:700;width:100%">No active lots right now.</div>`;
     return;
   }
   track.innerHTML = lots.map(l => {
@@ -427,14 +423,13 @@ function setSlide(lotId, idx){
   dots.forEach((d, i) => d.classList.toggle("active", i === slideIndices[lotId]));
 }
 
-setInterval(() => {
-  lots.forEach(l => {
-    if(l.media && l.media.length > 1){
-      const next = ((slideIndices[l.id] || 0) + 1) % l.media.length;
-      setSlide(l.id, next);
-    }
-  });
-}, 4000);
+function fileToDataURL(file){
+  return new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(file); });
+}
+function previewCount(input){
+  document.getElementById("fileCount").innerText = `${input.files.length} Photo/Video file(s) selected ✓`;
+}
+function loadSavedLogo(){}
 </script>
 </body>
 </html>
