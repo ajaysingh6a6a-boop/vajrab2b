@@ -26,9 +26,7 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
 .form-grid input,.form-grid select{padding:9px 11px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.85rem;background:#fff;color:var(--ink)}
 .upload-lbl{grid-column:1/-1;background:#eff6ff;border:2px dashed #3b82f6;color:var(--navy);padding:12px;text-align:center;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.88rem}
-.sync-row{grid-column:1/-1;display:flex;flex-direction:column;gap:8px;margin-top:5px}
-.sync-btn{background:var(--navy);color:#fff;border:none;padding:10px;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.85rem;width:100%}
-.add-btn{background:var(--green);color:#fff;border:none;padding:11px;border-radius:8px;font-weight:800;font-size:0.95rem;cursor:pointer;width:100%}
+.add-btn{grid-column:1/-1;background:var(--green);color:#fff;border:none;padding:11px;border-radius:8px;font-weight:800;font-size:0.95rem;cursor:pointer;width:100%;margin-top:5px}
 .sec-title{font-size:1.15rem;font-weight:900;color:var(--navy);margin:24px 0 12px 16px;display:flex;align-items:center;gap:8px}
 .container{max-width:1220px;margin:0 auto;padding:0 16px;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 .container::-webkit-scrollbar{height:6px}
@@ -64,7 +62,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
 .spec-item{display:flex;flex-direction:column}
 .spec-lbl{font-size:0.66rem;color:var(--sub);font-weight:700;text-transform:uppercase}
 .spec-val{font-weight:800;color:var(--ink)}
-.qc-box{background:#f0fdf4;border:1px solid #86efac;color:#166534;padding:7px 9px;border-radius:8px;font-size:0.76rem;font-weight:800;display:flex;align-items:center;justify-content:between}
+.qc-box{background:#f0fdf4;border:1.5px solid #86efac;color:#166534;padding:7px 9px;border-radius:8px;font-size:0.76rem;font-weight:800;display:flex;align-items:center;justify-content:space-between}
 .urgency{font-size:0.72rem;color:var(--gold);font-weight:800;display:flex;align-items:center;gap:5px}
 .sample-lock-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:7px 10px;text-align:center;font-size:0.76rem;font-weight:800;color:#1e40af}
 .wa-btn{background:var(--wa);color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-weight:900;font-size:0.88rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(37,211,102,0.35);transition:transform 0.15s}
@@ -75,7 +73,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
 
 <header>
   <div class="brand">
-    <div class="logo-box">
+    <div class="logo-box" id="logoTrigger" title="Click in Admin Mode to change Logo">
       <img id="siteLogo" src="1000106469.png" onerror="this.src=window.DEFAULT_VAJRA_LOGO" alt="Vajra Logo">
       <input type="file" id="logoInput" accept="image/*" style="display:none">
     </div>
@@ -99,7 +97,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
   </div>
 
   <div class="admin-panel" id="adminPanel">
-    <h3 style="color:var(--navy);font-size:0.95rem">🔒 Secure Admin Panel (Manual Upload / Google Sheets Sync)</h3>
+    <h3 style="color:var(--navy);font-size:0.95rem">🔒 Secure Admin Panel (Publish & Manage Lots)</h3>
     <div class="form-grid">
       <input id="fId" placeholder="Lot ID (e.g. VB-104)">
       <input id="fTitle" placeholder="Fabric Name (e.g. 14 KG Rayon Print)">
@@ -114,13 +112,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
         <input type="file" id="fMedia" accept="image/*,video/*" multiple style="display:none" onchange="previewCount(this)">
         <div id="fileCount" style="font-size:0.75rem;color:var(--green);margin-top:4px"></div>
       </label>
-      <div class="sync-row">
-        <button class="add-btn" onclick="createNewLot()">🚀 Publish Fresh Lot</button>
-        <button class="sync-btn" onclick="syncGoogleSheets()">📊 Sync Live Google Sheet (CSV / API)</button>
-      </div>
-    </div>
-    <div style="margin-top:12px">
-      <input id="sheetUrlInput" placeholder="Paste Google Sheet Published CSV Link Here" style="width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.82rem">
+      <button class="add-btn" onclick="createNewLot()">🚀 Publish Fresh Live Lot</button>
     </div>
   </div>
 </div>
@@ -160,8 +152,9 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
 <div style="max-width:1220px;margin:24px auto 40px;padding:0 16px;">
   <div style="background:#f8fafc;border:1.5px solid var(--bdr);border-radius:14px;padding:20px;text-align:center;">
     <h3 style="color:var(--navy);font-size:1.1rem;font-weight:900;margin-bottom:6px">📞 Contact & Support Desk (Surat Operations)</h3>
-    <p style="font-size:0.82rem;color:var(--sub);margin-bottom:6px">Ring Road Textile Corridor & Saroli Logistics Park, Surat, Gujarat</p>
-    <p style="font-size:0.85rem;color:var(--ink);font-weight:800;margin-bottom:14px">📧 Email: contact@vajrab2b.com | 📱 Phone: +91 95104 01971</p>
+    <p style="font-size:0.82rem;color:var(--sub);margin-bottom:8px">Ring Road Textile Corridor & Saroli Logistics Park, Surat, Gujarat</p>
+    <p style="font-size:0.88rem;color:var(--ink);font-weight:800;margin-bottom:4px">📧 Email: contact@vajrab2b.com</p>
+    <p style="font-size:0.88rem;color:var(--ink);font-weight:800;margin-bottom:14px">📱 Phone: +91 95104 01971</p>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
       <a href="tel:919510401971" style="background:var(--navy);color:#fff;text-decoration:none;padding:11px 22px;border-radius:8px;font-weight:900;font-size:0.88rem;display:inline-flex;align-items:center;gap:6px">
         📞 Call Now: +91 95104 01971
@@ -177,20 +170,20 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
   💬 Sourcing Desk
 </a>
 
-<!-- Sabse Niche Patli Si Black Line (Hidden Admin PIN Trigger: 969479) -->
+<!-- Footer Patli Black Line (Admin PIN Trigger: Amar4a4a##) -->
 <div id="footerAdminTrigger" title="Admin Portal" style="width:100%;height:6px;background:#0f172a;cursor:pointer;margin-top:50px;opacity:0.8;"></div>
 <script>
 const WA_NUMBER = "919510401971";
-const ADMIN_PIN = "969479";
+const ADMIN_PASS = "Amar4a4a##";
 
 document.getElementById("specialReqBtn").href = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent("Namaste Vajra B2B, meri ek special fabric requirement hai. Kripya mujhse sampark karein.");
 
 window.DEFAULT_VAJRA_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#14171a"/><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde08d"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#8a6421"/></linearGradient></defs><path d="M40 45 L75 45 L100 115 L125 45 L160 45 L108 145 L92 145 Z" fill="url(#g)" stroke="#fff" stroke-width="1.5"/><polygon points="108,25 82,88 104,88 88,152 126,78 102,78" fill="#fff7cc" stroke="#f59e0b" stroke-width="2"/><text x="100" y="182" text-anchor="middle" fill="url(#g)" font-family="Georgia,serif" font-size="28" font-weight="bold" letter-spacing="4">VAJRA</text></svg>`);
 
-const SAMPLE_SVG_1 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#1e293b"/><text x="50%" y="45%" text-anchor="middle" fill="#38bdf8" font-size="24" font-family="sans-serif" font-weight="bold">Surat Godown Surplus Lot</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="sans-serif">Admin Upload or Google Sheets Sync</text></svg>`);
+const SAMPLE_SVG_1 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#1e293b"/><text x="50%" y="45%" text-anchor="middle" fill="#38bdf8" font-size="24" font-family="sans-serif" font-weight="bold">Surat Godown Surplus Lot</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="sans-serif">Admin Upload or Gallery Sync</text></svg>`);
 
 let db, lots = [], soldLots = [], slideIndices = {};
-const req = indexedDB.open("VajraB2B_GalleryDB", 2);
+const req = indexedDB.open("VajraB2B_GalleryDB", 5);
 req.onupgradeneeded = e => {
   db = e.target.result;
   if(!db.objectStoreNames.contains("lots")) db.createObjectStore("lots", {keyPath: "id"});
@@ -203,23 +196,60 @@ req.onsuccess = e => {
   loadLots();
 };
 
-// Footer patli black line par click karte hi 6-digit PIN mangega
+// Footer patli black line par click karte hi password mangega
 document.getElementById("footerAdminTrigger").onclick = () => {
-  const enteredPin = prompt("🔒 Enter 6-Digit Admin Passcode to Access Upload Panel:");
-  if(enteredPin === ADMIN_PIN){
+  const enteredPass = prompt("🔒 Enter Admin Password to Access Panel:");
+  if(enteredPass === ADMIN_PASS){
     document.body.classList.toggle("is-admin");
     document.getElementById("adminPanel").classList.toggle("show");
     alert("✅ Admin Access Granted!");
-  } else if(enteredPin !== null) {
-    alert("❌ Incorrect Passcode! Access Denied.");
+  } else if(enteredPass !== null) {
+    alert("❌ Incorrect Password! Access Denied.");
   }
 };
+
+// Admin mode active hone par logo par click karke naya logo gallery se upload kar sakte hain
+document.getElementById("logoTrigger").onclick = () => {
+  if(document.body.classList.contains("is-admin")){
+    document.getElementById("logoInput").click();
+  } else {
+    alert("🔒 Admin mode is locked. Use footer black line to unlock.");
+  }
+};
+
+document.getElementById("logoInput").onchange = async e => {
+  const f = e.target.files[0];
+  if(!f) return;
+  const dataUrl = await fileToDataURL(f);
+  document.getElementById("siteLogo").src = dataUrl;
+  const tx = db.transaction("settings","readwrite");
+  tx.objectStore("settings").put({key:"logo", val:dataUrl});
+};
+
+function loadSavedLogo(){
+  const tx = db.transaction("settings","readonly");
+  const r = tx.objectStore("settings").get("logo");
+  r.onsuccess = () => { if(r.result) document.getElementById("siteLogo").src = r.result.val; };
+}
+
+function fileToDataURL(file){
+  return new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(file); });
+}
+function previewCount(input){
+  document.getElementById("fileCount").innerText = `${input.files.length} Photo/Video file(s) selected ✓`;
+}
 
 function loadLots(){
   const tx = db.transaction(["lots","sold"],"readonly");
   const rLots = tx.objectStore("lots").getAll();
   const rSold = tx.objectStore("sold").getAll();
-  rLots.onsuccess = () => { lots = rLots.result || []; renderLots(); };
+  rLots.onsuccess = () => { 
+    lots = rLots.result || []; 
+    if(lots.length === 0){
+      lots = [{id:"VB-101",title:"14 KG Liva Rayon Discharge Print",mktRate:38,vajraRate:28,qty:3200,panna:"44 Inches",use:"Jaipur Kurtis & Co-ords",qc:"Verified Grade-A",viewers:5,media:[{type:"image",url:SAMPLE_SVG_1}]}];
+    }
+    renderLots(); 
+  };
   rSold.onsuccess = () => { soldLots = rSold.result || []; renderSoldLots(); };
 }
 
@@ -243,34 +273,6 @@ async function createNewLot(){
   const tx = db.transaction("lots","readwrite");
   tx.objectStore("lots").put(newLot);
   tx.oncomplete = () => { loadLots(); alert("Fresh Lot Published Successfully!"); };
-}
-
-// Google Sheets CSV Sync Function
-async function syncGoogleSheets(){
-  const url = document.getElementById("sheetUrlInput").value.trim();
-  if(!url){ alert("Kripya apni Published Google Sheet ka CSV link enter karein."); return; }
-  try {
-    const res = await fetch(url);
-    const text = await res.text();
-    const rows = text.split("\n").map(r => r.split(","));
-    // Format expected: id, title, mktRate, vajraRate, qty, panna, use, qc, status(active/sold)
-    const tx = db.transaction(["lots","sold"],"readwrite");
-    for(let i=1; i<rows.length; i++){
-      const r = rows[i];
-      if(r.length >= 8){
-        const lot = {id: r[0].trim(), title: r[1].trim(), mktRate: Number(r[2]), vajraRate: Number(r[3]), qty: Number(r[4]), panna: r[5].trim(), use: r[6].trim(), qc: r[7].trim(), viewers: 5, media:[{type:"image",url:SAMPLE_SVG_1}]};
-        const status = r[8] ? r[8].trim().toLowerCase() : "active";
-        if(status === "sold"){
-          tx.objectStore("sold").put(lot);
-        } else {
-          tx.objectStore("lots").put(lot);
-        }
-      }
-    }
-    tx.oncomplete = () => { loadLots(); alert("Google Sheet Synced Successfully!"); };
-  } catch(err) {
-    alert("Sync Error: Kripya check karein ki Google Sheet properly CSV ke roop me published hai.");
-  }
 }
 
 async function uploadToCard(lotId, input){
@@ -310,14 +312,14 @@ function registerVIP(){
   if(!phone || phone.length < 10){ alert("Kripya sahi mobile number darj karein."); return; }
   document.getElementById("vipMsg").innerText = "✓ Registered! Redirecting to WhatsApp...";
   setTimeout(() => {
-    window.open(`https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(`Namaste Vajra B2B, mera mobile number ${phone} VIP Broadcast alerts ke liye register karein aur ise Google Sheet me log karein.`), "_blank");
+    window.open(`https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent(`Namaste Vajra B2B, mera mobile number ${phone} VIP Broadcast alerts ke liye register karein.`), "_blank");
   }, 1000);
 }
 
 function renderLots(){
   const track = document.getElementById("lotTrack");
   if(lots.length === 0){
-    track.innerHTML = `<div style="padding:30px;text-align:center;color:var(--sub);font-weight:700;width:100%">No active lots right now.</div>`;
+    track.innerHTML = `<div style="padding:20px;text-align:center;color:var(--sub);font-weight:700;width:100%">No active lots right now.</div>`;
     return;
   }
   track.innerHTML = lots.map(l => {
@@ -422,14 +424,6 @@ function setSlide(lotId, idx){
   });
   dots.forEach((d, i) => d.classList.toggle("active", i === slideIndices[lotId]));
 }
-
-function fileToDataURL(file){
-  return new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(file); });
-}
-function previewCount(input){
-  document.getElementById("fileCount").innerText = `${input.files.length} Photo/Video file(s) selected ✓`;
-}
-function loadSavedLogo(){}
 </script>
 </body>
 </html>
