@@ -21,12 +21,15 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .dash-guarantee h3{color:#15803d;font-size:1.05rem;font-weight:900;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .dash-guarantee-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;font-size:0.82rem;color:#166534;font-weight:700}
 .dash-guarantee-item{display:flex;align-items:center;gap:6px}
+
+/* Admin Panel - Hidden by default for consumers */
 .admin-panel{display:none;background:#f8fafc;border:2px dashed var(--navy);border-radius:14px;padding:16px;margin-bottom:20px}
 .admin-panel.show{display:block}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
 .form-grid input,.form-grid select{padding:9px 11px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.85rem;background:#fff;color:var(--ink)}
 .upload-lbl{grid-column:1/-1;background:#eff6ff;border:2px dashed #3b82f6;color:var(--navy);padding:12px;text-align:center;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.88rem}
 .add-btn{grid-column:1/-1;background:var(--green);color:#fff;border:none;padding:11px;border-radius:8px;font-weight:800;font-size:0.95rem;cursor:pointer;width:100%;margin-top:5px}
+
 .sec-title{font-size:1.15rem;font-weight:900;color:var(--navy);margin:24px 0 12px 16px;display:flex;align-items:center;gap:8px}
 .container{max-width:1220px;margin:0 auto;padding:0 16px;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 .container::-webkit-scrollbar{height:6px}
@@ -43,10 +46,15 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
 .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer}
 .dot.active{background:#fff;width:18px;border-radius:99px}
-.card-upload{display:none;position:absolute;bottom:8px;right:8px;background:rgba(15,23,42,0.88);color:#fff;font-size:0.72rem;font-weight:700;padding:5px 9px;border-radius:6px;cursor:pointer;z-index:5}
+
+/* Admin controls hidden for consumers by default */
+.card-upload,.del-btn,.sold-btn{display:none}
 body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{display:inline-block}
-.del-btn{display:none;position:absolute;top:40px;right:10px;background:var(--red);color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:0.7rem;font-weight:800;cursor:pointer;z-index:5}
-.sold-btn{display:none;position:absolute;top:72px;right:10px;background:var(--gold);color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:0.7rem;font-weight:800;cursor:pointer;z-index:5}
+
+.card-upload{position:absolute;bottom:8px;right:8px;background:rgba(15,23,42,0.88);color:#fff;font-size:0.72rem;font-weight:700;padding:5px 9px;border-radius:6px;cursor:pointer;z-index:5}
+.del-btn{position:absolute;top:40px;right:10px;background:var(--red);color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:0.7rem;font-weight:800;cursor:pointer;z-index:5}
+.sold-btn{position:absolute;top:72px;right:10px;background:var(--gold);color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:0.7rem;font-weight:800;cursor:pointer;z-index:5}
+
 .card-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
 .title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .fab-title{font-size:1.08rem;font-weight:900;color:var(--ink)}
@@ -73,7 +81,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
 
 <header>
   <div class="brand">
-    <div class="logo-box" id="logoTrigger" title="Click in Admin Mode to change Logo">
+    <div class="logo-box" id="logoTrigger" title="Logo">
       <img id="siteLogo" src="1000106469.png" onerror="this.src=window.DEFAULT_VAJRA_LOGO" alt="Vajra Logo">
       <input type="file" id="logoInput" accept="image/*" style="display:none">
     </div>
@@ -96,8 +104,9 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
     </div>
   </div>
 
+  <!-- Admin Panel (Secured Behind Password) -->
   <div class="admin-panel" id="adminPanel">
-    <h3 style="color:var(--navy);font-size:0.95rem">🔒 Secure Admin Panel (Publish & Manage Lots)</h3>
+    <h3 style="color:var(--navy);font-size:0.95rem">🔒 Admin Control Panel (Publish & Manage Lots)</h3>
     <div class="form-grid">
       <input id="fId" placeholder="Lot ID (e.g. VB-104)">
       <input id="fTitle" placeholder="Fabric Name (e.g. 14 KG Rayon Print)">
@@ -170,7 +179,7 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
   💬 Sourcing Desk
 </a>
 
-<!-- Footer Patli Black Line (Admin PIN Trigger: Amar4a4a##) -->
+<!-- Footer Patli Black Line (Admin Password Trigger: Amar4a4a##) -->
 <div id="footerAdminTrigger" title="Admin Portal" style="width:100%;height:6px;background:#0f172a;cursor:pointer;margin-top:50px;opacity:0.8;"></div>
 <script>
 const WA_NUMBER = "919510401971";
@@ -180,10 +189,10 @@ document.getElementById("specialReqBtn").href = `https://wa.me/${WA_NUMBER}?text
 
 window.DEFAULT_VAJRA_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#14171a"/><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde08d"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#8a6421"/></linearGradient></defs><path d="M40 45 L75 45 L100 115 L125 45 L160 45 L108 145 L92 145 Z" fill="url(#g)" stroke="#fff" stroke-width="1.5"/><polygon points="108,25 82,88 104,88 88,152 126,78 102,78" fill="#fff7cc" stroke="#f59e0b" stroke-width="2"/><text x="100" y="182" text-anchor="middle" fill="url(#g)" font-family="Georgia,serif" font-size="28" font-weight="bold" letter-spacing="4">VAJRA</text></svg>`);
 
-const SAMPLE_SVG_1 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#1e293b"/><text x="50%" y="45%" text-anchor="middle" fill="#38bdf8" font-size="24" font-family="sans-serif" font-weight="bold">Surat Godown Surplus Lot</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="sans-serif">Admin Upload or Gallery Sync</text></svg>`);
+const SAMPLE_SVG_1 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#1e293b"/><text x="50%" y="45%" text-anchor="middle" fill="#38bdf8" font-size="24" font-family="sans-serif" font-weight="bold">Surat Godown Surplus Lot</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="sans-serif">Admin Upload</text></svg>`);
 
 let db, lots = [], soldLots = [], slideIndices = {};
-const req = indexedDB.open("VajraB2B_GalleryDB", 5);
+const req = indexedDB.open("VajraB2B_GalleryDB", 6);
 req.onupgradeneeded = e => {
   db = e.target.result;
   if(!db.objectStoreNames.contains("lots")) db.createObjectStore("lots", {keyPath: "id"});
@@ -202,7 +211,7 @@ document.getElementById("footerAdminTrigger").onclick = () => {
   if(enteredPass === ADMIN_PASS){
     document.body.classList.toggle("is-admin");
     document.getElementById("adminPanel").classList.toggle("show");
-    alert("✅ Admin Access Granted!");
+    alert("✅ Admin Access Granted! You can now add, delete or mark lots as sold out.");
   } else if(enteredPass !== null) {
     alert("❌ Incorrect Password! Access Denied.");
   }
@@ -212,8 +221,6 @@ document.getElementById("footerAdminTrigger").onclick = () => {
 document.getElementById("logoTrigger").onclick = () => {
   if(document.body.classList.contains("is-admin")){
     document.getElementById("logoInput").click();
-  } else {
-    alert("🔒 Admin mode is locked. Use footer black line to unlock.");
   }
 };
 
