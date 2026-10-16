@@ -22,7 +22,6 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .dash-guarantee-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;font-size:0.82rem;color:#166534;font-weight:700}
 .dash-guarantee-item{display:flex;align-items:center;gap:6px}
 
-/* Admin Panel - Hidden by default for consumers */
 .admin-panel{display:none;background:#f8fafc;border:2px dashed var(--navy);border-radius:14px;padding:16px;margin-bottom:20px}
 .admin-panel.show{display:block}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
@@ -48,7 +47,6 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer}
 .dot.active{background:#fff;width:18px;border-radius:99px}
 
-/* Admin controls hidden completely for normal consumers */
 .card-upload,.del-btn,.sold-btn{display:none}
 body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{display:inline-block}
 
@@ -105,7 +103,6 @@ body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{displa
     </div>
   </div>
 
-  <!-- Admin Panel (Protected by Password & Has Save & Lock option) -->
   <div class="admin-panel" id="adminPanel">
     <h3 style="color:var(--navy);font-size:0.95rem">🔒 Admin Control Panel (Publish & Manage Lots)</h3>
     <div class="form-grid">
@@ -194,7 +191,7 @@ window.DEFAULT_VAJRA_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<sv
 const SAMPLE_SVG_1 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#1e293b"/><text x="50%" y="45%" text-anchor="middle" fill="#38bdf8" font-size="24" font-family="sans-serif" font-weight="bold">Surat Godown Surplus Lot</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="sans-serif">Admin Upload</text></svg>`);
 
 let db, lots = [], soldLots = [], slideIndices = {};
-const req = indexedDB.open("VajraB2B_GalleryDB", 7);
+const req = indexedDB.open("VajraB2B_GalleryDB", 8);
 req.onupgradeneeded = e => {
   db = e.target.result;
   if(!db.objectStoreNames.contains("lots")) db.createObjectStore("lots", {keyPath: "id"});
@@ -226,7 +223,6 @@ function saveAndLockAdmin(){
   alert("🔒 Admin Panel Locked & Saved! Website is back to normal consumer view.");
 }
 
-// Admin mode active hone par logo par click karke naya logo gallery se upload kar sakte hain
 document.getElementById("logoTrigger").onclick = () => {
   if(document.body.classList.contains("is-admin")){
     document.getElementById("logoInput").click();
@@ -282,7 +278,11 @@ async function createNewLot(){
   const newLot = {id, title, mktRate, vajraRate, qty, panna, use, qc, viewers: Math.floor(3+Math.random()*7), media};
   const tx = db.transaction("lots","readwrite");
   tx.objectStore("lots").put(newLot);
-  tx.oncomplete = () => { loadLots(); alert("Fresh Lot Published Successfully!"); };
+  tx.oncomplete = () => { 
+    loadLots(); 
+    document.getElementById("fileCount").innerText = "";
+    alert("Fresh Lot Published Successfully & Live!"); 
+  };
 }
 
 async function uploadToCard(lotId, input){
