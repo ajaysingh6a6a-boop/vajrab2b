@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Vajra Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="brand-title">VAJRA Admin</div><button id="logoutBtn" class="btn alt" style="display:none;width:auto;padding:8px 14px" onclick="logout()">Logout</button></header>
+
+<div class="login" id="loginBox">
+  <h3 style="color:var(--navy)">🔒 Admin Login</h3>
+  <input id="email" type="email" placeholder="Email" autocomplete="username">
+  <input id="pass" type="password" placeholder="Password" autocomplete="current-password">
+  <button class="btn" onclick="login()">Login</button>
+  <div class="msg" id="loginMsg"></div>
+</div>
+
+<div class="panel" id="panel" style="display:none">
+  <h3 id="formTitle" style="color:var(--navy)">➕ Naya Lot Publish Karein</h3>
+  <div class="form-grid">
+    <input id="fId" placeholder="Lot ID (e.g. VB-104)">
+    <input id="fTitle" placeholder="Fabric Name (e.g. 14 KG Rayon Print)">
+    <input id="fMkt" type="number" min="0" step="0.01" placeholder="Fresh Market Rate (₹/m)">
+    <input id="fRate" type="number" min="0" step="0.01" placeholder="Vajra Spot Rate (₹/m)">
+    <input id="fQty" type="number" min="1" placeholder="Total Meters">
+    <input id="fPanna" placeholder="Panna (e.g. 44 Inches)">
+    <input id="fUse" placeholder="Best For (e.g. Kurtis / Co-ords)">
+    <input id="fQc" placeholder="Quality Grade (e.g. Verified Grade-A)">
+    <label class="upload-lbl">📂 Photos & Videos select karein (max 6)
+      <input type="file" id="fMedia" accept="image/*,video/*" multiple style="display:none" onchange="document.getElementById('fileCount').textContent=this.files.length+' file(s) selected ✓'">
+      <div id="fileCount" style="font-size:.75rem;color:var(--green);margin-top:4px"></div>
+    </label>
+    <button class="btn" id="saveBtn" onclick="saveLot()">🚀 Publish Lot</button>
+    <button class="btn alt" id="cancelBtn" style="display:none" onclick="resetForm()">Cancel Edit</button>
+  </div>
+  <div class="msg" id="formMsg"></div>
+  <h3 style="color:var(--navy);margin-top:26px">📦 Saare Lots</h3>
+  <div id="list"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = "https://agzqvdckqkeguolhjbvp.supabase.co";
+const SUPABASE_KEY = "sb_publishable_kbf0JYLz5nCyxa-jDtH6ug_JJuMgf5r";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let lots = [], editing = null;
+
+async function init() {
+  const { data } = await sb.auth.getSession();
+  data.session ? showPanel() : showLogin();
+}
+function showLogin() { $("loginBox").style.display = "flex"; $("panel").style.display = "none"; $("logoutBtn").style.display = "none"; }
+function showPanel() { $("loginBox").style.display = "none"; $("panel").style.display = "block"; $("logoutBtn").style.display = "inline-block"; loadLots(); }
+
+async function login() {
+  $("loginMsg").textContent = "";
+  const { error } = await sb.auth.signInWithPassword({ email: $("email").value.trim(), password: $("pass").value });
+  if (error) { $("loginMsg").textContent = "Email ya password galat hai."; return; }
+  $("pass").value = ""; showPanel();
+}
+async function logout() { await sb.auth.signOut(); showLogin(); }
+
+async function loadLots() {
+  const { data, error } = await sb.from("lots").select("*").order("created_at", { ascending: false });
+  if (error) { $("list").innerHTML = `<div class="msg">Load error: ${esc(error.message)}</div>`; return; }
+  lots = data;
+  $("list").innerHTML = lots.length ? lots.map(l => {
+    const f = (l.media || [])[0];
+    const th = f ? (f.type === "video" ? `<video src="${esc(f.url)}" muted></video>` : `<img src="${esc(f.url)}">`) : `<img>`;
+    const sold = l.status === "sold";
+    return `<div class="row">${th}<div class="info">#${esc(l.lot_code)} · ${esc(l.title)}<br><span style="color:var(--sub)">₹${l.vajra_rate}/m · ${l.qty} m · ${sold ? "🔒 SOLD" : "🟢 ACTIVE"}</span></div>
+      <button style="background:var(--navy)" onclick="editLot('${l.id}')">Edit</button>
+      <button style="background:var(--gold)" onclick="toggleSold('${l.id}')">${sold ? "Reactivate" : "Sold"}</button>
+      <button style="background:var(--red)" onclick="delLot('${l.id}')">Delete</button></div>`;
+  }).join("") : `<div class="empty">Abhi koi lot nahi hai.</div>`;
+}
+
+function compress(file, max = 1280) {
+  return new Promise((res, rej) => {
+    const img = new Image(), u = URL.createObjectURL(file);
+    img.onload = () => {
+      const r = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement("canvas"); c.width = img.width * r; c.height = img.height * r;
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(u); c.toBlob(b => b ? res(b) : rej(new Error("compress failed")), "image/jpeg", 0.8);
+    };
+    img.onerror = () => rej(new Error("Image read nahi hui"));
+    img.src = u;
+  });
+}
+
+async function uploadFiles(files) {
+  const out = [];
+  for (const f of files) {
+    const isVid = f.type.startsWith("video");
+    if (isVid && f.size > 30 * 1024 * 1024) throw new Error(`${f.name}: video 30MB se chhoti honi chahiye`);
+    const body = isVid ? f : await compress(f);
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${isVid ? (f.name.split(".").pop() || "mp4") : "jpg"}`;
+    const { error } = await sb.storage.from("lot-media").upload(path, body, { contentType: isVid ? f.type : "image/jpeg" });
+    if (error) throw error;
+    out.push({ type: isVid ? "video" : "image", url: sb.storage.from("lot-media").getPublicUrl(path).data.publicUrl });
+  }
+  return out;
+}
+
+async function saveLot() {
+  const msg = $("formMsg"); msg.textContent = "";
+  const v = { lot_code: $("fId").value.trim(), title: $("fTitle").value.trim(), mkt_rate: Number($("fMkt").value), vajra_rate: Number($("fRate").value),
+    qty: parseInt($("fQty").value, 10), panna: $("fPanna").value.trim(), use_for: $("fUse").value.trim(), qc: $("fQc").value.trim() };
+  const files = [...$("fMedia").files];
+  if (!v.lot_code || !v.title || !v.panna || !v.use_for || !v.qc) { msg.textContent = "Saare fields bharna zaroori hai."; return; }
+  if (!(v.mkt_rate > 0) || !(v.vajra_rate > 0) || !(v.qty > 0)) { msg.textContent = "Rate aur quantity sahi daalein."; return; }
+  if (files.length > 6) { msg.textContent = "Maximum 6 files."; return; }
+  if (!editing && !files.length) { msg.textContent = "Kam se kam 1 photo/video daalein."; return; }
+  if (v.vajra_rate >= v.mkt_rate && !confirm("Vajra rate market rate se kam nahi hai. Phir bhi publish karein?")) return;
+  $("saveBtn").disabled = true; $("saveBtn").textContent = "Uploading...";
+  try {
+    if (files.length) v.media = await uploadFiles(files);
+    const q = editing ? sb.from("lots").update(v).eq("id", editing) : sb.from("lots").insert(v);
+    const { error } = await q;
+    if (error) throw error.code === "23505" ? new Error("Ye Lot ID pehle se maujood hai.") : error;
+    resetForm(); await loadLots(); msg.style.color = "var(--green)"; msg.textContent = "✓ Save ho gaya!";
+  } catch (e) { msg.style.color = "var(--red)"; msg.textContent = "Error: " + (e.message || e); }
+  $("saveBtn").disabled = false; $("saveBtn").textContent = editing ? "💾 Update Lot" : "🚀 Publish Lot";
+}
+
+function editLot(id) {
+  const l = lots.find(x => x.id === id); if (!l) return;
+  editing = id;
+  $("fId").value = l.lot_code; $("fTitle").value = l.title; $("fMkt").value = l.mkt_rate; $("fRate").value = l.vajra_rate;
+  $("fQty").value = l.qty; $("fPanna").value = l.panna; $("fUse").value = l.use_for; $("fQc").value = l.qc;
+  $("formTitle").textContent = "✏️ Lot Edit: #" + l.lot_code; $("saveBtn").textContent = "💾 Update Lot";
+  $("cancelBtn").style.display = "block"; $("fileCount").textContent = "Nayi files select karoge to purani replace ho jayengi";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function resetForm() {
+  editing = null;
+  document.querySelectorAll(".form-grid input").forEach(i => i.value = "");
+  $("fileCount").textContent = ""; $("formTitle").textContent = "➕ Naya Lot Publish Karein";
+  $("saveBtn").textContent = "🚀 Publish Lot"; $("cancelBtn").style.display = "none"; $("formMsg").textContent = "";
+}
+
+async function toggleSold(id) {
+  const l = lots.find(x => x.id === id); if (!l) return;
+  const to = l.status === "sold" ? "active" : "sold";
+  if (!confirm(`Lot #${l.lot_code} ko ${to === "sold" ? "SOLD OUT" : "ACTIVE"} mark karein?`)) return;
+  const { error } = await sb.from("lots").update({ status: to }).eq("id", id);
+  if (error) alert(error.message); loadLots();
+}
+
+async function delLot(id) {
+  const l = lots.find(x => x.id === id); if (!l) return;
+  if (!confirm(`Lot #${l.lot_code} PERMANENTLY delete karein? Ye wapas nahi aayega.`)) return;
+  const paths = (l.media || []).map(m => m.url.split("/lot-media/")[1]).filter(Boolean);
+  if (paths.length) await sb.storage.from("lot-media").remove(paths);
+  const { error } = await sb.from("lots").delete().eq("id", id);
+  if (error) alert(error.message); loadLots();
+}
+
+$("pass").addEventListener("keydown", e => { if (e.key === "Enter") login(); });
+init();
+</script>
+</body>
+</html>
