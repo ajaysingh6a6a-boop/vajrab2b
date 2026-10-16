@@ -19,19 +19,23 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .admin-btn{background:#f1f5f9;color:var(--ink);border:1px solid var(--bdr);padding:7px 12px;border-radius:8px;font-size:0.78rem;font-weight:700;cursor:pointer}
 .admin-btn.active{background:var(--navy);color:#fff}
 .hero{max-width:1220px;margin:18px auto 10px;padding:0 16px}
-.trust-bar{background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px 16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}
-.trust-item{color:#166534;font-size:0.85rem;font-weight:800;display:flex;align-items:center;gap:6px}
+.dash-guarantee{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:2px solid #22c55e;border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:0 4px 15px rgba(22,163,74,0.1)}
+.dash-guarantee h3{color:#15803d;font-size:1.05rem;font-weight:900;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.dash-guarantee-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;font-size:0.82rem;color:#166534;font-weight:700}
+.dash-guarantee-item{display:flex;align-items:center;gap:6px}
 .admin-panel{display:none;background:#f8fafc;border:2px dashed var(--navy);border-radius:14px;padding:16px;margin-bottom:20px}
 .admin-panel.show{display:block}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
 .form-grid input,.form-grid select{padding:9px 11px;border:1px solid #cbd5e1;border-radius:8px;font-size:0.85rem;background:#fff;color:var(--ink)}
 .upload-lbl{grid-column:1/-1;background:#eff6ff;border:2px dashed #3b82f6;color:var(--navy);padding:12px;text-align:center;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.88rem}
+.sync-row{grid-column:1/-1;display:flex;gap:10px;margin-top:5px}
+.sync-btn{flex:1;background:var(--navy);color:#fff;border:none;padding:10px;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.85rem}
 .add-btn{grid-column:1/-1;background:var(--green);color:#fff;border:none;padding:11px;border-radius:8px;font-weight:800;font-size:0.95rem;cursor:pointer}
-.container{max-width:1220px;margin:0 auto;padding:0 16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
-.card{background:var(--card);border:1.5px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(15,23,42,0.06);transition:transform 0.25s,box-shadow 0.25s;display:flex;flex-direction:column;position:relative}
-.card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(30,58,138,0.12);border-color:#93c5fd}
-.media-wrap{position:relative;height:235px;background:#f1f5f9;overflow:hidden}
+.sec-title{font-size:1.15rem;font-weight:900;color:var(--navy);margin:24px 0 12px 16px;display:flex;align-items:center;gap:8px}
+.container{max-width:1220px;margin:0 auto;padding:0 16px;overflow:hidden}
+.carousel-track{display:flex;gap:22px;transition:transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);width:100%}
+.card{background:var(--card);border:1.5px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(15,23,42,0.06);display:flex;flex-direction:column;position:relative;flex:0 0 350px;min-width:350px}
+.media-wrap{position:relative;height:220px;background:#f1f5f9;overflow:hidden}
 .slide-item{width:100%;height:100%;object-fit:cover;display:none}
 .slide-item.active{display:block;animation:fadeIn 0.4s ease}
 @keyframes fadeIn{from{opacity:0.4}to{opacity:1}}
@@ -42,36 +46,36 @@ header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,0.96);backdr
 .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer}
 .dot.active{background:#fff;width:18px;border-radius:99px}
 .card-upload{display:none;position:absolute;bottom:8px;right:8px;background:rgba(15,23,42,0.88);color:#fff;font-size:0.72rem;font-weight:700;padding:5px 9px;border-radius:6px;cursor:pointer;z-index:5}
-body.is-admin .card-upload,body.is-admin .del-btn{display:inline-block}
+body.is-admin .card-upload,body.is-admin .del-btn,body.is-admin .sold-btn{display:inline-block}
 .del-btn{display:none;position:absolute;top:40px;right:10px;background:var(--red);color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:0.7rem;font-weight:800;cursor:pointer;z-index:5}
-.card-body{padding:15px;display:flex;flex-direction:column;gap:11px;flex:1}
+.sold-btn{display:none;position:absolute;top:72px;right:10px;background:var(--gold);color:#fff;border:none;padding:4px 8px;border-radius:6px;font-size:0.7rem;font-weight:800;cursor:pointer;z-index:5}
+.card-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
 .title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.fab-title{font-size:1.12rem;font-weight:900;color:var(--ink)}
+.fab-title{font-size:1.08rem;font-weight:900;color:var(--ink)}
 .end-use{background:#eff6ff;color:var(--navy);font-size:0.72rem;font-weight:800;padding:3px 8px;border-radius:6px;white-space:nowrap}
-.price-box{background:linear-gradient(135deg,#f8fafc 0%,#f0fdf4 100%);border:1.5px solid #bbf7d0;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.price-box{background:linear-gradient(135deg,#f8fafc 0%,#f0fdf4 100%);border:1.5px solid #bbf7d0;border-radius:12px;padding:9px 11px;display:flex;flex-direction:column;gap:4px}
 .price-flex{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
-.mkt-rate{font-size:0.82rem;color:var(--sub);font-weight:700}
-.mkt-strike{color:var(--red);text-decoration:line-through;font-weight:900;font-size:0.95rem;margin-left:4px}
-.vajra-rate{font-size:1.45rem;font-weight:900;color:var(--green)}
-.vajra-rate small{font-size:0.75rem;color:var(--sub);font-weight:700}
-.save-banner{background:#fef2f2;color:var(--red);border:1px solid #fecaca;padding:4px 8px;border-radius:6px;font-size:0.78rem;font-weight:900;display:flex;justify-content:space-between;align-items:center;animation:pulseSave 2s infinite}
-@keyframes pulseSave{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
-.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;font-size:0.8rem;background:#f8fafc;padding:10px;border-radius:10px;border:1px solid var(--bdr)}
+.mkt-rate{font-size:0.8rem;color:var(--sub);font-weight:700}
+.mkt-strike{color:var(--red);text-decoration:line-through;font-weight:900;font-size:0.92rem;margin-left:4px}
+.vajra-rate{font-size:1.4rem;font-weight:900;color:var(--green)}
+.vajra-rate small{font-size:0.72rem;color:var(--sub);font-weight:700}
+.save-banner{background:#fef2f2;color:var(--red);border:1px solid #fecaca;padding:4px 8px;border-radius:6px;font-size:0.76rem;font-weight:900;display:flex;justify-content:space-between;align-items:center}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:0.78rem;background:#f8fafc;padding:9px;border-radius:10px;border:1px solid var(--bdr)}
 .spec-item{display:flex;flex-direction:column}
-.spec-lbl{font-size:0.68rem;color:var(--sub);font-weight:700;text-transform:uppercase}
+.spec-lbl{font-size:0.66rem;color:var(--sub);font-weight:700;text-transform:uppercase}
 .spec-val{font-weight:800;color:var(--ink)}
-.qc-box{background:#f0fdf4;border:1px solid #86efac;color:#166534;padding:8px 10px;border-radius:8px;font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:space-between}
-.urgency{font-size:0.74rem;color:var(--gold);font-weight:800;display:flex;align-items:center;gap:5px}
-.wa-btn{margin-top:auto;background:var(--wa);color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:900;font-size:0.92rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(37,211,102,0.35);transition:background 0.2s,transform 0.15s}
-.wa-btn:hover{background:#1da851;transform:scale(1.01)}
-.float-wa{position:fixed;bottom:18px;right:18px;background:var(--wa);color:#fff;padding:12px 18px;border-radius:99px;font-weight:900;font-size:0.88rem;text-decoration:none;box-shadow:0 6px 20px rgba(37,211,102,0.45);z-index:99;display:flex;align-items:center;gap:8px}
+.qc-box{background:#f0fdf4;border:1px solid #86efac;color:#166534;padding:7px 9px;border-radius:8px;font-size:0.76rem;font-weight:800;display:flex;align-items:center;justify-content:space-between}
+.urgency{font-size:0.72rem;color:var(--gold);font-weight:800;display:flex;align-items:center;gap:5px}
+.sample-lock-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:7px 10px;text-align:center;font-size:0.76rem;font-weight:800;color:#1e40af}
+.wa-btn{background:var(--wa);color:#fff;text-decoration:none;padding:11px;border-radius:10px;font-weight:900;font-size:0.88rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(37,211,102,0.35);transition:transform 0.15s}
+.wa-btn:hover{transform:scale(1.01)}
 </style>
 </head>
 <body>
 
 <header>
   <div class="brand">
-    <div class="logo-box" id="logoTrigger" title="Click in Admin Mode to change Logo from Gallery">
+    <div class="logo-box" id="logoTrigger" title="Click in Admin Mode to change Logo">
       <img id="siteLogo" src="1000106469.png" onerror="this.src=window.DEFAULT_VAJRA_LOGO" alt="Vajra Logo">
       <input type="file" id="logoInput" accept="image/*" style="display:none">
     </div>
@@ -86,224 +90,6 @@ body.is-admin .card-upload,body.is-admin .del-btn{display:inline-block}
   </div>
 </header>
 <div class="hero">
-  <div class="trust-bar">
-    <div class="trust-item">✅ 100% Physical Godown Check by Quality Inspector</div>
-    <div class="trust-item">✅ 10% Token + 90% Safe Hold-LR (Bilty) Delivery Guarantee</div>
-    <div class="trust-item">✅ Direct Mill & Converter Dead-Stock (25%-35% Below Market Rate)</div>
-  </div>
-
-  <div class="admin-panel" id="adminPanel">
-    <h3 style="color:var(--navy);font-size:0.95rem">➕ Add New Surplus Lot Directly From Gallery (Zero Third-Party)</h3>
-    <div class="form-grid">
-      <input id="fId" placeholder="Lot ID (e.g. VB-104)">
-      <input id="fTitle" placeholder="Fabric Name (e.g. 14 KG Rayon Print)">
-      <input id="fMkt" type="number" placeholder="Fresh Market Rate (₹/m e.g. 38)">
-      <input id="fRate" type="number" placeholder="Vajra Spot Rate (₹/m e.g. 28)">
-      <input id="fQty" type="number" placeholder="Total Meters (e.g. 3200)">
-      <input id="fPanna" placeholder="Panna / Width (e.g. 44 Inches)">
-      <input id="fUse" placeholder="Best For (e.g. Jaipur Kurtis / Co-ords)">
-      <input id="fQc" placeholder="Quality Inspector (e.g. Verified Grade-A)">
-      <label class="upload-lbl">
-        📂 Click to Select Multiple Photos & Videos Directly from Phone/PC Gallery
-        <input type="file" id="fMedia" accept="image/*,video/*" multiple style="display:none" onchange="previewCount(this)">
-        <div id="fileCount" style="font-size:0.75rem;color:var(--green);margin-top:4px"></div>
-      </label>
-      <button class="add-btn" onclick="createNewLot()">🚀 Publish Lot on Live Website</button>
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="grid" id="lotGrid"></div>
-</div>
-
-<a class="float-wa" href="https://wa.me/919999999999?text=Namaste%20Vajra%20B2B%2C%20mujhe%20live%20surplus%20lots%20ke%20counter-samples%20aur%20details%20chahiye." target="_blank">
-  💬 WhatsApp Direct Sourcing Desk
-</a>
-
-<script>
-const WA_NUMBER = "919999999999";
-window.DEFAULT_VAJRA_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#14171a"/><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde08d"/><stop offset="50%" stop-color="#d4af37"/><stop offset="100%" stop-color="#8a6421"/></linearGradient></defs><path d="M40 45 L75 45 L100 115 L125 45 L160 45 L108 145 L92 145 Z" fill="url(#g)" stroke="#fff" stroke-width="1.5"/><polygon points="108,25 82,88 104,88 88,152 126,78 102,78" fill="#fff7cc" stroke="#f59e0b" stroke-width="2"/><text x="100" y="182" text-anchor="middle" fill="url(#g)" font-family="Georgia,serif" font-size="28" font-weight="bold" letter-spacing="4">VAJRA</text></svg>`);
-
-const SAMPLE_SVG_1 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#1e293b"/><text x="50%" y="45%" text-anchor="middle" fill="#38bdf8" font-size="24" font-family="sans-serif" font-weight="bold">14 KG Rayon Mill Print (Thappi View)</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="sans-serif">Use Admin Upload to Add Gallery Photos/Videos</text></svg>`);
-const SAMPLE_SVG_2 = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#064e3b"/><text x="50%" y="45%" text-anchor="middle" fill="#4ade80" font-size="24" font-family="sans-serif" font-weight="bold">44" Panna Measuring Tape Check ✓</text><text x="50%" y="58%" text-anchor="middle" fill="#d1fae5" font-size="15" font-family="sans-serif">100% Burn Test & Counter-Sample Verified</text></svg>`);
-
-const DEFAULT_LOTS = [
-  {id:"VB-101",title:"14 KG Liva Rayon Discharge Print",mktRate:38,vajraRate:28,qty:3200,panna:"44 Inches",use:"Jaipur Kurtis & Co-ord Sets",qc:"Verified Grade-A (<2% Tolerance)",viewers:6,media:[{type:"image",url:SAMPLE_SVG_1},{type:"image",url:SAMPLE_SVG_2}]},
-  {id:"VB-102",title:"60x60 Pure Cotton Cambric Floral",mktRate:54,vajraRate:41,qty:2400,panna:"44 Inches",use:"Premium Tiered Dresses & Suits",qc:"Verified Grade-A (Zero Pinhole)",viewers:4,media:[{type:"image",url:SAMPLE_SVG_1},{type:"image",url:SAMPLE_SVG_2}]},
-  {id:"VB-103",title:"Heavy American Crepe Digital Lot",mktRate:25,vajraRate:17,qty:4500,panna:"44 Inches",use:"Delhi Western Tops & Maxis",qc:"Verified Grade-A (Seal Packed)",viewers:9,media:[{type:"image",url:SAMPLE_SVG_1},{type:"image",url:SAMPLE_SVG_2}]}
-];
-
-let db, lots = [], slideIndices = {};
-const req = indexedDB.open("VajraB2B_GalleryDB", 1);
-req.onupgradeneeded = e => {
-  db = e.target.result;
-  db.createObjectStore("lots", {keyPath: "id"});
-  db.createObjectStore("settings", {keyPath: "key"});
-};
-req.onsuccess = e => {
-  db = e.target.result;
-  loadSavedLogo();
-  loadLots();
-};
-
-function toggleAdmin(){
-  document.body.classList.toggle("is-admin");
-  document.getElementById("adminPanel").classList.toggle("show");
-  document.getElementById("adminToggle").classList.toggle("active");
-}
-
-document.getElementById("logoTrigger").onclick = () => {
-  if(document.body.classList.contains("is-admin")) document.getElementById("logoInput").click();
-};
-document.getElementById("logoInput").onchange = async e => {
-  const f = e.target.files[0];
-  if(!f) return;
-  const dataUrl = await fileToDataURL(f);
-  document.getElementById("siteLogo").src = dataUrl;
-  const tx = db.transaction("settings","readwrite");
-  tx.objectStore("settings").put({key:"logo", val:dataUrl});
-};
-function loadSavedLogo(){
-  const tx = db.transaction("settings","readonly");
-  const r = tx.objectStore("settings").get("logo");
-  r.onsuccess = () => { if(r.result) document.getElementById("siteLogo").src = r.result.val; };
-}
-
-function fileToDataURL(file){
-  return new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(file); });
-}
-function previewCount(input){
-  document.getElementById("fileCount").innerText = `${input.files.length} Photo/Video file(s) selected from Gallery ✓`;
-}
-
-function loadLots(){
-  const tx = db.transaction("lots","readonly");
-  const r = tx.objectStore("lots").getAll();
-  r.onsuccess = () => {
-    if(r.result && r.result.length > 0){ lots = r.result; }
-    else {
-      lots = DEFAULT_LOTS;
-      const wtx = db.transaction("lots","readwrite");
-      lots.forEach(l => wtx.objectStore("lots").put(l));
-    }
-    renderLots();
-  };
-}
-
-async function createNewLot(){
-  const id = document.getElementById("fId").value.trim() || "VB-" + Math.floor(100+Math.random()*900);
-  const title = document.getElementById("fTitle").value.trim() || "14 KG Rayon Surplus Lot";
-  const mktRate = Number(document.getElementById("fMkt").value) || 36;
-  const vajraRate = Number(document.getElementById("fRate").value) || 26;
-  const qty = Number(document.getElementById("fQty").value) || 2500;
-  const panna = document.getElementById("fPanna").value.trim() || "44 Inches";
-  const use = document.getElementById("fUse").value.trim() || "Kurtis & Garments";
-  const qc = document.getElementById("fQc").value.trim() || "Verified Grade-A";
-  const files = document.getElementById("fMedia").files;
-  let media = [];
-  for(let f of files){
-    const url = await fileToDataURL(f);
-    media.push({type: f.type.startsWith("video") ? "video" : "image", url});
-  }
-  if(media.length === 0) media = [{type:"image",url:SAMPLE_SVG_1}];
-  const newLot = {id, title, mktRate, vajraRate, qty, panna, use, qc, viewers: Math.floor(3+Math.random()*7), media};
-  const tx = db.transaction("lots","readwrite");
-  tx.objectStore("lots").put(newLot);
-  tx.oncomplete = () => { loadLots(); document.getElementById("fileCount").innerText = "Uploaded & Published!"; };
-}
-
-async function uploadToCard(lotId, input){
-  const files = input.files;
-  if(!files.length) return;
-  const lot = lots.find(l => l.id === lotId);
-  if(!lot) return;
-  const uploaded = [];
-  for(let f of files){
-    const url = await fileToDataURL(f);
-    uploaded.push({type: f.type.startsWith("video") ? "video" : "image", url});
-  }
-  lot.media = uploaded;
-  const tx = db.transaction("lots","readwrite");
-  tx.objectStore("lots").put(lot);
-  tx.oncomplete = () => loadLots();
-}
-
-function deleteLot(lotId){
-  const tx = db.transaction("lots","readwrite");
-  tx.objectStore("lots").delete(lotId);
-  tx.oncomplete = () => loadLots();
-}
-
-function renderLots(){
-  const grid = document.getElementById("lotGrid");
-  grid.innerHTML = lots.map(l => {
-    const savePerMtr = Math.max(0, l.mktRate - l.vajraRate);
-    const pctSave = l.mktRate > 0 ? Math.round((savePerMtr / l.mktRate)*100) : 0;
-    const totalSave = (savePerMtr * l.qty).toLocaleString("en-IN");
-    const waText = encodeURIComponent(`Namaste Vajra B2B, mujhe Lot *${l.id} (${l.title})* @ ₹${l.vajraRate}/m (${l.qty} Mtr) ka 10-inch Counter-Sample aur Hold-Bilty deal lock karni hai.`);
-    const mediaHtml = l.media.map((m, idx) => m.type === "video"
-      ? `<video class="slide-item ${idx===0?'active':''}" src="${m.url}" muted loop playsinline autoplay></video>`
-      : `<img class="slide-item ${idx===0?'active':''}" src="${m.url}" alt="${l.title}">`
-    ).join("");
-    const dotsHtml = l.media.map((_, idx) => `<span class="dot ${idx===0?'active':''}" onclick="setSlide('${l.id}',${idx})"></span>`).join("");
-
-    return `<div class="card" id="card-${l.id}">
-      <div class="media-wrap">
-        ${mediaHtml}
-        <div class="top-badges">
-          <span class="lot-tag">LOT #${l.id}</span>
-          <span class="guar-tag">✓ 100% Hold-LR Guarantee</span>
-        </div>
-        <button class="del-btn" onclick="deleteLot('${l.id}')">🗑 Delete</button>
-        <label class="card-upload">📷 Upload Gallery Photo/Video
-          <input type="file" accept="image/*,video/*" multiple style="display:none" onchange="uploadToCard('${l.id}',this)">
-        </label>
-        <div class="dots">${dotsHtml}</div>
-      </div>
-      <div class="card-body">
-        <div class="title-row">
-          <div class="fab-title">${l.title}</div>
-          <span class="end-use">✂️ ${l.use}</span>
-        </div>
-        <div class="price-box">
-          <div class="price-flex">
-            <div class="mkt-rate">Surat Fresh Rate:<span class="mkt-strike">₹${l.mktRate}/m</span></div>
-            <div class="vajra-rate">₹${l.vajraRate}<small>/Meter (Spot)</small></div>
-          </div>
-          <div class="save-banner">
-            <span>🔥 Direct Profit Saving: ₹${savePerMtr}/m (${pctSave}% OFF)</span>
-            <span>Save ₹${totalSave} on Lot!</span>
-          </div>
-        </div>
-        <div class="specs-grid">
-          <div class="spec-item"><span class="spec-lbl">Total Ready Quantity</span><span class="spec-val">${l.qty.toLocaleString("en-IN")} Meters (±2%)</span></div>
-          <div class="spec-item"><span class="spec-lbl">Verified Panna (Width)</span><span class="spec-val">${l.panna}</span></div>
-          <div class="spec-item"><span class="spec-lbl">Payment Security</span><span class="spec-val" style="color:var(--green)">10% Token + 90% Hold LR</span></div>
-          <div class="spec-item"><span class="spec-lbl">Counter-Sample</span><span class="spec-val">Same-Day Courier Ready</span></div>
-        </div>
-        <div class="qc-box">
-          <span>🛡️ Physical Godown Check by <strong>Quality Inspector</strong></span>
-          <span>✓ ${l.qc}</span>
-        </div>
-        <div class="urgency">⚡ High Demand: ${l.viewers} Outstation Buyers viewing this lot right now</div>
-        <a class="wa-btn" href="https://wa.me/${WA_NUMBER}?text=${waText}" target="_blank">
-          🟢 WhatsApp Par Sample Mangwayein & Lot Lock Karein
-        </a>
-      </div>
-    </div>`;
-  }).join("");
-}
-
-function setSlide(lotId, idx){
-  const card = document.getElementById("card-" + lotId);
-  if(!card) return;
-  const items = card.querySelectorAll(".slide-item");
-  const dots = card.querySelectorAll(".dot");
-  if(!items.length) return;
-  slideIndices[lotId] = idx % items.length;
-  items.forEach((<div class="hero">
-  <!-- Vajra Guarantee Dashboard Reflect -->
   <div class="dash-guarantee">
     <h3>🛡️ Vajra B2B Triple Trust & Security Guarantee</h3>
     <div class="dash-guarantee-grid">
@@ -337,19 +123,16 @@ function setSlide(lotId, idx){
   </div>
 </div>
 
-<!-- Fresh Lots Section -->
 <div class="sec-title">🔥 Live Surat Surplus Lots (Fast Liquidation)</div>
 <div class="container">
   <div class="carousel-track" id="lotTrack"></div>
 </div>
 
-<!-- Sold Out History Section (Horizontally Reflecting Below Fresh Lots) -->
 <div class="sec-title" style="color:var(--gold)">📜 Sold Out Lots History & Archive</div>
 <div class="container">
   <div class="carousel-track" id="soldTrack"></div>
 </div>
 
-<!-- Special Requirement Section -->
 <div style="max-width:1220px;margin:24px auto;padding:0 16px;">
   <div style="background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border:2px solid #3b82f6;border-radius:14px;padding:20px;text-align:center;">
     <h3 style="color:#1e40af;font-size:1.1rem;font-weight:900;margin-bottom:6px">🎯 Koi Special Fabric Requirement Hai? (Custom Sourcing)</h3>
@@ -360,7 +143,6 @@ function setSlide(lotId, idx){
   </div>
 </div>
 
-<!-- VIP Broadcast Option -->
 <div style="max-width:1220px;margin:24px auto;padding:0 16px;">
   <div style="background:linear-gradient(135deg,#1e3a8a 0%,#111827 100%);border-radius:14px;padding:22px;color:#fff;text-align:center;">
     <h3 style="font-size:1.2rem;font-weight:900;margin-bottom:6px">⚡ Join Vajra VIP Broadcast (Daily Surat Surplus Alerts)</h3>
@@ -373,7 +155,6 @@ function setSlide(lotId, idx){
   </div>
 </div>
 
-<!-- Contact & Support Section -->
 <div style="max-width:1220px;margin:24px auto 40px;padding:0 16px;">
   <div style="background:#f8fafc;border:1.5px solid var(--bdr);border-radius:14px;padding:20px;text-align:center;">
     <h3 style="color:var(--navy);font-size:1.1rem;font-weight:900;margin-bottom:6px">📞 Contact & Support Desk (Surat Operations)</h3>
@@ -392,7 +173,6 @@ function setSlide(lotId, idx){
 <a class="float-wa" href="https://wa.me/919999999999?text=Namaste%20Vajra%20B2B%2C%20mujhe%20live%20surplus%20lots%20ki%20details%20chahiye." target="_blank" style="position:fixed;bottom:18px;right:18px;background:var(--wa);color:#fff;padding:12px 18px;border-radius:99px;font-weight:900;font-size:0.88rem;text-decoration:none;box-shadow:0 6px 20px rgba(37,211,102,0.45);z-index:99;display:flex;align-items:center;gap:8px">
   💬 Sourcing Desk
 </a>
-
 <script>
 const WA_NUMBER = "919999999999";
 document.getElementById("specialReqBtn").href = `https://wa.me/${WA_NUMBER}?text=` + encodeURIComponent("Namaste Vajra B2B, meri ek special fabric requirement hai. Kripya mujhse sampark karein.");
@@ -475,7 +255,6 @@ async function createNewLot(){
   tx.oncomplete = () => { loadLots(); document.getElementById("fileCount").innerText = "Published!"; };
 }
 
-// Google Sheets Sync Placeholder simulation (Can be linked to published Google Sheets CSV endpoint)
 function syncGoogleSheets(){
   alert("Google Sheets Sync: To auto-sync live lots, publish your Google Sheet as CSV and connect the endpoint. Currently loading active local database.");
   loadLots();
@@ -631,7 +410,6 @@ function setSlide(lotId, idx){
   dots.forEach((d, i) => d.classList.toggle("active", i === slideIndices[lotId]));
 }
 
-// 4-sec photo/video slide inside card
 setInterval(() => {
   lots.forEach(l => {
     if(l.media && l.media.length > 1){
@@ -641,7 +419,6 @@ setInterval(() => {
   });
 }, 4000);
 
-// Horizontal 3-sec gap auto-slide for Fresh Lots carousel
 setInterval(() => {
   const track = document.getElementById("lotTrack");
   if(!track || lots.length <= 1) return;
@@ -650,7 +427,6 @@ setInterval(() => {
   track.style.transform = `translateX(-${carouselIndex * cardWidth}px)`;
 }, 3000);
 
-// Horizontal auto-slide for Sold Out History carousel
 setInterval(() => {
   const sTrack = document.getElementById("soldTrack");
   if(!sTrack || soldLots.length <= 1) return;
